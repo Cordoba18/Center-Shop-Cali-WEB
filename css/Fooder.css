@@ -1,0 +1,13 @@
+.componente2{
+    background-color: green;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    margin: auto;
+    display: flex;
+    text-decoration:none;
+}
+.ayudas{
+    text-decoration:none;
+     margin: 30px;
+}

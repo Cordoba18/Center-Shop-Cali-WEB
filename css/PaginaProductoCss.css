@@ -1,0 +1,9 @@
+body{
+    margin: auto;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+}
+.imagen_producto{
+    height: 500px;
+}
