@@ -1,3 +1,6 @@
+<?php
+include_once("../sql/Conexion.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,19 +34,19 @@
   </button>
   <ul class="dropdown-menu">
   <?php 
-$con = conectar();
-$sql = "SELECT*FROM categorias";
-$result = mysqli_query($con, $sql);
-while ($mostrar = mysqli_fetch_array($result)) {
-echo "<li><a class='dropdown-item' href='vistas/PaginaProductos.php?categoria=$mostrar[categoria]'> $mostrar[categoria] </a></li>";
-}
+  $con = conectar();
+  $sql = "SELECT*FROM categorias";
+  $result = mysqli_query($con, $sql);
+  while ($mostrar = mysqli_fetch_array($result)) {
+  echo "<li><a class='dropdown-item' href='PaginaProductos.php?categoria=$mostrar[categoria]'> $mostrar[categoria] </a></li>";
+  }
   mysqli_close($con)  ?>
   </ul>
 </div>
-      <form class="d-flex" action="vistas/PaginaProductos.php" role="search"> 
+      <form class="d-flex" action="PaginaProductos.php" role="search"> 
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
         <input class="btn btn-outline-primary" type="submit" value="SEARCH"></input>
-        <a class="btn btn-light " id="btn-sesion" href="vistas/login.php">INICIO DE SESIÒN</a>
+        <a class="btn btn-light " id="btn-sesion" href="login.php">INICIO DE SESIÒN</a>
       </form>
     </div>
   </div>

@@ -1,14 +1,8 @@
 
 <?php
-include_once("sql/Conexion.php");
 include_once("HeaderPrincipal.php");
 ?>
-<!DOCTYPE html>
-<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Center Shop Cali</title>
     <link rel="stylesheet" href="css/IndexCss.css">
     <link href="css/slider.css" rel="stylesheet" type="text/css" />
@@ -75,7 +69,7 @@ while ($mostrar2 = mysqli_fetch_array($result2)) { ?>
     <?php
     $im = $mostrar2['logo']; 
     $nom = $mostrar2['nombre'];?>
-      <?php echo "<a href='vistas/PaginaProductos.php?search=".$mostrar2['nombre']."'><img class='logo' src='images/$im'></a>"?> 
+      <?php echo "<a href='vistas/PaginaProductos.php?empresa=".$mostrar2['nombre']."'><img class='logo' src='images/$im'></a>"?> 
       <?php echo "<h1 class='titulo_logo'>$mostrar2[nombre]</h1>"?>
  </div>
  <?php 

@@ -1,4 +1,6 @@
-
+<?php
+include_once("sql/Conexion.php");
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
