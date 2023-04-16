@@ -44,8 +44,8 @@ include_once("../sql/Conexion.php");
   </ul>
 </div>
       <form class="d-flex" action="PaginaProductos.php" role="search"> 
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" required>
-        <input class="btn btn-outline-primary" type="submit" value="SEARCH"></input>
+        <input class="form-control me-2" type="search" placeholder="Buscar productos" aria-label="Search" name="search" required>
+        <input class="btn btn-primary" type="submit" value="BUSCAR"></input>
         <a class="btn btn-light " id="btn-sesion" href="login.php">INICIO DE SESIÒN</a>
       </form>
     </div>
