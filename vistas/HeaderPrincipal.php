@@ -8,13 +8,13 @@ include_once("../sql/Conexion.php");
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/Header.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" 
+    <link href="../librerias/bootstrap.min.css" 
     rel="stylesheet" 
     integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" 
     crossorigin="anonymous">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-success">
+<nav class="navbar navbar-expand-lg">
   <div class="container-fluid ">
   <a class="navbar-brand" href="../index.php">
       <img src="../icons/LOGO.png" alt="Bootstrap" width="100" height="100">
@@ -45,12 +45,12 @@ include_once("../sql/Conexion.php");
 </div>
       <form class="d-flex" action="PaginaProductos.php" role="search"> 
         <input class="form-control me-2" type="search" placeholder="Buscar productos" aria-label="Search" name="search" required>
-        <input class="btn btn-primary" type="submit" value="BUSCAR"></input>
+        <input class="btn-Buscar" type="submit" value="BUSCAR"></input>
         <a class="btn btn-light " id="btn-sesion" href="login.php">INICIO DE SESIÒN</a>
       </form>
     </div>
   </div>
 </nav>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../librerias/bootstrap.bundle.min.js"></script>
 </body>
 </html>

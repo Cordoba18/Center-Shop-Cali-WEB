@@ -1,5 +1,5 @@
 
-#header{
+.navbar{
     background-color: green;
 }
 #btn-sesion {
@@ -27,6 +27,10 @@
 }
 a{
     text-decoration: none; 
+}
+.btn-Buscar{
+    color: white;
+    background-color: blue;
 }
 
 

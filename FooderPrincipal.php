@@ -12,7 +12,6 @@
     <a class="ayudas" href=""> Terminos y condiciones</a>
     <a class="ayudas" href=""> Ayudas</a>
     <a class="ayudas" href=""> Contactanos</a>
-    <p> CREADOR JHAN CARLOS CORDOBA</p>
     </div>
 </body>
 </html>
