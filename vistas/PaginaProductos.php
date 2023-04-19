@@ -91,11 +91,19 @@ if (isset($_GET['empresa'])) {
      }else {
         $categoria2 = "";
      }
-    $con = conectar();
-    if ($categoria2 == "") {
+     $sql = "SELECT * FROM users WHERE nombre='$_GET[search]' OR nombre  REGEXP '".strtolower($_GET['search'])."'";
+     $result5 = mysqli_query($con, $sql);
+     if ($mostrar5 = mysqli_fetch_array($result5)) {
+         $idempresa = $mostrar5['id'];
+     }else {
+        $idempresa= "";
+     }
+    if ($categoria2 == "" && $idempresa == "") {
         $sql = "SELECT * FROM productos WHERE nombre= '$_GET[search]' OR nombre REGEXP '".strtolower($_GET['search'])."' AND estado='activo'";
-    }else {
-        $sql = "SELECT * FROM productos WHERE (nombre= '$_GET[search]' OR nombre REGEXP '".strtolower($_GET['search'])."' OR categoria=$categoria2) AND estado='activo'";
+    }else if ($idempresa == "" && !$categoria2 == "") {
+      $sql = "SELECT * FROM productos WHERE (nombre= '$_GET[search]' OR nombre REGEXP '".strtolower($_GET['search'])."' OR categoria=$categoria2) AND estado='activo'";
+    } else {
+        $sql = "SELECT * FROM productos WHERE (nombre= '$_GET[search]' OR nombre REGEXP '".strtolower($_GET['search'])."' OR id_empresa=$idempresa) AND estado='activo'";
     }
     $result5 = mysqli_query($con, $sql);
     while ($mostrar5 = mysqli_fetch_array($result5)) {
