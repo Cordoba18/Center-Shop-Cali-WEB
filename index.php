@@ -62,10 +62,12 @@ $nom = [];
 while ($mostrar10 = mysqli_fetch_array($result10)) { ?>
     <?php
     $im[] = $mostrar10['logo']; 
-    $nom[] = $mostrar10['nombre'];}?>
+    $nom[] = $mostrar10['nombre'];
+    $id[] = $mostrar10['id'];}?>
+   
       <?php for ($i=0; $i < 3 ; $i++) { ?>
-       <div class="elemento" border =6 >
-        <?php echo "<a href='vistas/PaginaProductos.php?empresa=".$nom[$i]."'><img class='logo' src='images/$im[$i]'></a>"?> 
+       <div class="elemento" >
+        <?php echo "<a href='vistas/PaginaProductos.php?empresa=".$id[$i]."'><img class='logo' src='images/$im[$i]'></a>"?> 
       <?php echo "<h1 class='titulo_logo'>$nom[$i]</h1>"  ;?> 
        </div>
     <?php } ?>

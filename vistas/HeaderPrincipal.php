@@ -19,7 +19,7 @@ include_once("../sql/Conexion.php");
   <a class="navbar-brand" href="../index.php">
       <img src="../icons/LOGO.png" alt="Bootstrap" width="100" height="100">
     </a>
-    <a class="navbar-brand" id="tittle" href="index.php">CENTER SHOP CALI</a>
+    <a class="navbar-brand" id="tittle" href="../index.php">CENTER SHOP CALI</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

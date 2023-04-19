@@ -1,0 +1,121 @@
+
+.locales{
+    display: flex;
+    flex-wrap: wrap;
+}
+.elemento{
+    flex: 1 0 auto;
+    margin: 30px;
+    width: 250px;
+    height: 250px;
+    border-radius: 100%;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    border:outset;
+    box-shadow: 0px 0px 30px rgb(1, 31, 1);
+
+}
+.elemento:hover{
+    box-shadow: 0px 0px 30px green;
+}
+
+.logo {
+    width: 160px;
+    height: 100px;
+    margin-top: 50px;   
+    
+}
+.logo:hover{
+    transform: scale(1.2);
+    
+}
+.titulo_logo{
+    color: black;
+    font-size: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-top: 20px;
+}
+.titulo_componente{
+    margin-top: 3%;
+    font-size: 30px;
+    margin-left: 6%;
+    text-shadow: darkseagreen;
+    color: grey;
+}
+.imagen-producto{
+    width: 295px;
+    height: 150px;
+    margin: 0;
+  }
+  .producto {
+    width: 300px;
+    height: 340px;
+    margin: 20px;
+    border: solid;
+    box-shadow: 0px 0px 15px;
+    
+  }
+  .producto:hover{
+    box-shadow: 0px 0px 20px green;
+    transform: scale(1.1);
+  }
+  .precio-antes{
+    margin-left: 5%;
+   color: grey;
+   text-decoration: line-through;
+
+  }
+
+  .precio-actual{
+    margin-left: 5%;
+    font-weight: bold;
+    font-size: 15px;
+    font-family: "Mulish", sans-serif;
+  }
+  .btn-listadeseos{
+    width: 30px;
+    height: 30px;
+    margin-left: 5%;
+    margin-top: 5px;
+   
+  }
+  .btn-listadeseos:hover{
+    transform: scale(1.2);
+  }
+  .btn-carritocompras:hover{
+    transform: scale(1.2);
+  }
+  .btn-carritocompras{
+    width: 30px;
+    height: 30px;
+    margin-left: 5%;
+    margin-top: 5px;
+    
+  }
+  .nombre-producto{
+    margin-top: 5px;
+    font-size: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-left: 5%;
+    font-weight: bold;
+  }
+  .id-producto{
+    color: grey;
+    margin-left: 5%;
+  }
+  .precio-descuento{
+    display: flex;
+  }
+  .descuento{
+    color: red;
+    margin-left: 20%;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: "Mulish", sans-serif;
+  }
+  .productos{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
