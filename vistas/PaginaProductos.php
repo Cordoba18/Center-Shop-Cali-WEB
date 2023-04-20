@@ -7,18 +7,43 @@ include_once("HeaderPrincipal.php");
 </head>
 <body>
 
+
+<div class="contenedor-productos">
+  <div class="recomendaciones">
+    <?php 
+    
+    // if ($_GET['empresa']) {?>
+    
+    // <h1> Filtros  </h1>
+    // <?php
+   
+    // }elseif ($_GET['decuentos']) {?>
+    //   <?php
+    //   # code...
+    // }elseif ($_GET['search']) {?><?php
+    //   # code...
+    // }elseif ($_GET['categoria']) {?><?php
+    //   # code...
+    // }
+
+    ?>
+
+  </div>
 <?php 
 if (isset($_GET['empresa'])) {
 
     $empresa = $_GET['empresa'];
    if ($empresa == "ALL") {?>
-     <h1 class="titulo_componente">TODAS LAS EMPRESAS</h1>
-    <div class="locales"> <?php
+    <div class="locales"> 
+      <div class="resultados"><p class="r_busqueda">Resultados de busqueda de </p>
+       <h1 class="resultado"><?php echo "EMPRESAS"; ?> </h1></div><?php
     $con = conectar();
  $sql = "SELECT*FROM users WHERE Roles_id = 2 AND estado = 'activo' ORDER BY RAND()";
  $result10 = mysqli_query($con, $sql);
+ $resultado = 0;
  while ($mostrar10 = mysqli_fetch_array($result10)) { ?>
         <div class="elemento" >
+          <?php $resultado = $resultado + 1; ?>
          <?php echo "<a href='PaginaProductos.php?empresa=".$mostrar10['id']."'><img class='logo' src='../images/$mostrar10[logo]'></a>"?> 
        <?php echo "<h1 class='titulo_logo'>$mostrar10[nombre]</h1>"  ;?> 
         </div>
@@ -30,18 +55,33 @@ if (isset($_GET['empresa'])) {
     <?php
    }else {
     ?> 
-      <h1 class="titulo_componente">Productos de la empresa : <?php $con = conectar();
-    $sql = "SELECT * FROM users WHERE id = $_GET[empresa] AND estado='activo'";
-    $result11 = mysqli_query($con, $sql);
-    while ($mostrar11 = mysqli_fetch_array($result11)) {
-        echo $mostrar11['nombre'];
-    } ?> </h1>
-    <div class="productos"><?php
+    <div class="productos">
+    <div class="resultados"><p class="r_busqueda">Resultados de busqueda de </p>
+     <h1 class="resultado">
+      <?php
+      $con = conectar(); 
+      $sql = "SELECT * FROM users WHERE id=$empresa  AND  estado='activo'";
+      $result7 = mysqli_query($con, $sql);
+      if ($mostrar7 = mysqli_fetch_array($result7)) {
+        echo $mostrar7['nombre'];
+      } 
+      ?>
+    </h1> <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    ORDENAR POR
+  </button>
+  <ul class="dropdown-menu">
+  <li><a class='dropdown-item' href=''> MAYOR PRECIO </a></li>
+  <li><a class='dropdown-item' href=''> MENOR PRECIO </a></li>
+  <li><a class='dropdown-item' href=''> MAS RECIENTE </a></li>
+  <li><a class='dropdown-item' href=''> MEJOR VOTADOS </a></li>
+  </ul></div><?php
     $con = conectar();
     $sql = "SELECT * FROM productos WHERE id_empresa = $_GET[empresa] AND estado='activo'";
     $result5 = mysqli_query($con, $sql);
+    $resultado = 0;
     while ($mostrar5 = mysqli_fetch_array($result5)) {
       ?><div class="producto">
+        <?php $resultado = $resultado + 1; ?>
         <?php
       $id = $mostrar5['id'];
       $sql = "SELECT * FROM imagenes_productos where id_producto='$id' and estado='activo'";
@@ -81,8 +121,16 @@ if (isset($_GET['empresa'])) {
 <?php } } ?>  </div> <?php mysqli_close($con); }
     
    } else if (isset($_GET['search'])) {?>
-    <h1 class="titulo_componente">Buscaste :<?php echo $_GET['search'] ?> </h1>
-    <div class="productos"><?php
+    <div class="productos">
+    <div class="resultados"><p class="r_busqueda">Resultados de busqueda de  </p> <h1 class="resultado"><?php echo $_GET['search'] ?> </h1> <button id="10" class=" dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    ORDENAR POR
+  </button>
+  <ul class="dropdown-menu">
+  <li><a class='dropdown-item' href=''> MAYOR PRECIO </a></li>
+  <li><a class='dropdown-item' href=''> MENOR PRECIO </a></li>
+  <li><a class='dropdown-item' href=''> MAS RECIENTE </a></li>
+  <li><a class='dropdown-item' href=''> MEJOR VOTADOS </a></li>
+  </ul></div><?php
      $con = conectar();
      $sql = "SELECT * FROM categorias WHERE categoria='$_GET[search]' OR categoria  REGEXP '".strtolower($_GET['search'])."'";
      $result5 = mysqli_query($con, $sql);
@@ -99,15 +147,18 @@ if (isset($_GET['empresa'])) {
         $idempresa= "";
      }
     if ($categoria2 == "" && $idempresa == "") {
-        $sql = "SELECT * FROM productos WHERE nombre= '$_GET[search]' OR nombre REGEXP '".strtolower($_GET['search'])."' AND estado='activo'";
+        $sql = "SELECT * FROM productos WHERE nombre= '$_GET[search]' OR nombre REGEXP '".strtolower($_GET['search'])."' OR descripcion REGEXP '".strtolower($_GET['search'])."' AND estado='activo'";
     }else if (!$categoria2 == "") {
       $sql = "SELECT * FROM productos WHERE categoria=$categoria2 AND estado='activo'";
-    } else {
+    } else if (!$idempresa == "") {
         $sql = "SELECT * FROM productos WHERE id_empresa=$idempresa AND estado='activo'";
     }
+    $resultado = 0;
     $result5 = mysqli_query($con, $sql);
     while ($mostrar5 = mysqli_fetch_array($result5)) {
       ?><div class="producto">
+            <?php $resultado = $resultado + 1; ?>
+            
         <?php
       $id = $mostrar5['id'];
       $sql = "SELECT * FROM imagenes_productos where id_producto='$id' and estado='activo'";
@@ -144,10 +195,24 @@ if (isset($_GET['empresa'])) {
          <a href=""><img class="btn-listadeseos" src="../icons/ListaDeDeseos.png" alt=""></a>
          <a href=""><img class="btn-carritocompras" src="../icons/CarritoCompras.png" alt=""></a>
 </div>
-<?php } } ?>  </div> <?php mysqli_close($con); }
+<?php } } if ($resultado == 0) {?>
+  <div class="nobusqueda">
+<h1 class="excepcion"> LO SIENTO NO ENCONTRAMOS SU PRODUCTO</h1></div>
+<?php
+} ?>  </div> <?php mysqli_close($con); }
 else if (isset($_GET['categoria'])) { ?>
-    <h1 class="titulo_componente">Estas en la categoria :<?php echo $_GET['categoria'] ?> </h1>
-    <div class="productos"><?php
+    <div class="productos">
+    <div class="resultados"><p class="r_busqueda">Resultados de busqueda de </p><h1 class="resultado"><?php echo $_GET['categoria'] ?> </h1> <button class=" dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+    ORDENAR POR
+  </button>
+  <ul class="dropdown-menu">
+  <li><a class='dropdown-item' href=''> MAYOR PRECIO </a></li>
+  <li><a class='dropdown-item' href=''> MENOR PRECIO </a></li>
+  <li><a class='dropdown-item' href=''> MAS RECIENTE </a></li>
+  <li><a class='dropdown-item' href=''> MEJOR VOTADOS </a></li>
+  </ul></div><?php
+    
     $con = conectar();
     $sql = "SELECT * FROM categorias WHERE categoria='$_GET[categoria]'";
     $result5 = mysqli_query($con, $sql);
@@ -157,8 +222,10 @@ else if (isset($_GET['categoria'])) { ?>
     $con = conectar();
     $sql = "SELECT * FROM productos WHERE categoria = $categoria AND estado='activo'";
     $result5 = mysqli_query($con, $sql);
+    $resultado = 0;
     while ($mostrar5 = mysqli_fetch_array($result5)) {
       ?><div class="producto">
+       <?php $resultado = $resultado + 1; ?>
         <?php
       $id = $mostrar5['id'];
       $sql = "SELECT * FROM imagenes_productos where id_producto='$id' and estado='activo'";
@@ -195,7 +262,11 @@ else if (isset($_GET['categoria'])) { ?>
          <a href=""><img class="btn-listadeseos" src="../icons/ListaDeDeseos.png" alt=""></a>
          <a href=""><img class="btn-carritocompras" src="../icons/CarritoCompras.png" alt=""></a>
 </div>
-<?php } } ?>  </div> <?php mysqli_close($con); } ?>
+<?php } } ?>  </div> <?php mysqli_close($con);  }
+ ?>
+ <p class="resultadototal" hidden><?php echo $resultado?> </p>
+</div>
+<script src="../scripts/busquedatotal.js"></script>
 </body>
 </html>
 <?php
