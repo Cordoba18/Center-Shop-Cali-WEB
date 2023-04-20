@@ -29,7 +29,7 @@ include_once("../sql/Conexion.php");
         </li>
       </ul>
       <div class="dropdown" id="categorias">
-  <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+  <button class=" dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
     CATEGORIAS
   </button>
   <ul class="dropdown-menu">
@@ -46,7 +46,7 @@ include_once("../sql/Conexion.php");
       <form class="d-flex" action="PaginaProductos.php" role="search"> 
         <input class="form-control me-2" type="search" placeholder="Buscar productos" aria-label="Search" name="search" required>
         <input class="btn-Buscar" type="submit" value="BUSCAR"></input>
-        <a class="btn btn-light " id="btn-sesion" href="login.php">INICIO DE SESIÒN</a>
+        <a class="btn btn-light" id="btn-sesion" href="login.php">INICIO DE SESIÒN</a>
       </form>
     </div>
   </div>

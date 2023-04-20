@@ -31,6 +31,10 @@ a{
 .btn-Buscar{
     color: white;
     background-color: blue;
+    border-radius: 5px;
 }
-
-
+.dropdown-toggle{
+    background-color: blue;
+    padding: 6px;
+    border-radius: 5px;
+    color: white;}

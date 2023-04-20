@@ -12,6 +12,7 @@
     <a class="ayudas" href=""> Terminos y condiciones</a>
     <a class="ayudas" href=""> Ayudas</a>
     <a class="ayudas" href=""> Contactanos</a>
+    <a class="ayudas" href=""> Unete a nosotros</a>
     </div>
 </body>
 </html>
