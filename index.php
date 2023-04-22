@@ -85,7 +85,7 @@ while ($mostrar10 = mysqli_fetch_array($result10)) { ?>
         <div class="product-container">
                 <?php
                 $con = conectar();
-                $sql = "SELECT * FROM `lista_deseos` GROUP BY id_producto HAVING COUNT(*)>1 ORDER BY RAND()  AND estado='activo'";
+                $sql = "SELECT DISTINCT id_producto FROM `lista_deseos`  WHERE estado='activo' ORDER BY RAND()";
                 $result5 = mysqli_query($con, $sql);
                 while ($mostrar5 = mysqli_fetch_array($result5)) {
                   $idpopular[] = $mostrar5['id_producto'];
@@ -146,7 +146,7 @@ while ($mostrar10 = mysqli_fetch_array($result10)) { ?>
   </div>
   <br>
   <div class="barra-locales">
-<h1 class="titulo_componente"> DESCUENTOS        </h1> <a class="btn-mas" href="vistas/PaginaProductos.php?empresa=ALL">VER MAS</a>
+<h1 class="titulo_componente"> DESCUENTOS        </h1> <a class="btn-mas" href="vistas/PaginaProductos.php?descuento=ALL">VER MAS</a>
 </div><br>
 <section class="product"> 
         <button class="pre-btn"><img src="images/arrow.png" alt=""></button>

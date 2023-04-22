@@ -4,6 +4,7 @@
   flex-wrap: wrap;
   width: 100%;
   align-content: flex-end;
+  height: 100%;
 }
 .elemento{
     flex: 1 0 auto;
@@ -114,6 +115,7 @@
     flex-wrap: wrap;
     width: 100%;
     align-content: flex-end;
+    height: 100%;
   }
 
   .contenedor-productos{
@@ -127,10 +129,10 @@
   .recomendaciones{
     width: 100% auto;
     height: auto;
-    margin-top: 2%;
+    margin-top: 5%;
     margin-bottom: 2%;
     margin-left: 20px;
-    margin-right: 40px;
+    margin-right: 2%;
   }
   .resultados{
     display: flex;
@@ -157,7 +159,7 @@
 
   }
   .nobusqueda{
-    margin: 6%;
+    margin: 8%;
     height: auto;
     align-content: center;
     text-align: center;
@@ -172,5 +174,33 @@
     font-size: 44px;
     font-family: 'Segoe UI', Tahoma,
   }
-  
+  .titulo_filtros{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 35px;
+    font-weight: normal;
+  }
+  .filtro{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    margin-left: 6%;
+
+  }
+  .subfiltro{
+    text-decoration: none;
+    color: gray;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    font-size: 10px;
+    margin: 0% auto;
+
+  }
+  .subfiltro:hover{
+  color: green;
+  }
+  li{
+    list-style: none;
+  }
+  ul{
+    margin: 0px;
+  }
  
