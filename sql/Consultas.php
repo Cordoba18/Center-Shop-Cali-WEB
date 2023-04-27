@@ -2,214 +2,29 @@
 include_once ("../sql/Conexion.php");
  include_once ("../modelo/Usuario.php");
 class consulta{
-
-
-    public function ingresar($correo, $contrasena){
-
-        $con = conectar();
-      $sql = "SELECT*FROM user WHERE correo='".$correo."' AND contraseña='".$contrasena."' AND estado='activado'";  
-      $query = mysqli_query($con,$sql);
-      $filas = mysqli_num_rows($query);
-      $mostrar = mysqli_fetch_array($query);
-      if($filas){
-        header("location: Tabla.php?id=".$mostrar['id']."");
-       
-      }else{
-        echo "<center><p> <font color ='red'>USUARIO NO EXISTENTE O INACTIVO</font></p><center/>";
-    
-      }
-      mysqli_close($con);
-      
-    }
-
-    public function consultarU($correo){
-
-      $con = conectar();
-    $sql = "SELECT*FROM user WHERE correo='".$correo."' AND estado='activado'";  
-    $query = mysqli_query($con,$sql);
-    $filas = mysqli_num_rows($query);
-    $mostrar = mysqli_fetch_array($query);
-    if($filas){
-      return true;
-     
-    }else{
-      return false;
-  
-  
-    }
-    mysqli_close($con);
-    
-  }
-    public function consultarcontra(Usuario $u){
-
-        $con = conectar();
-      $sql = "SELECT*FROM user WHERE contraseña='".$u ->getContrasena()."' AND id='".$u->getId()."'";  
-      $query = mysqli_query($con,$sql);
-      $filas = mysqli_num_rows($query);
-      if($filas){
-            return true;
-       
-      }else{
-            return false;
-    
-      }
-      mysqli_close($con);
-      
-    }
-
-
-    public function verreserva(Usuario $u){
-        $fecha = date('m/d/Y');
-        $con = conectar();
-      $sql = "SELECT*FROM reservas WHERE cedula='".$u->getCedula()."' AND discoteca='".$u->getDiscoteca()."' AND fecha='$fecha'";  
-      $query = mysqli_query($con,$sql);
-      $filas = mysqli_num_rows($query);
-      if($filas){
-            return true;
-       
-      }else{
-            return false;
-    
-      }
-      mysqli_close($con);
-    }
-    public function limitereserva(Usuario $u)
-    {
-        $fecha = date('m/d/Y');
-        $con = conectar();
-        $sql = "SELECT*FROM reservas WHERE discoteca='" . $u->getDiscoteca() . "' AND fecha='$fecha'";
-        $query = mysqli_query($con, $sql);
-        $filas = mysqli_num_rows($query);
-        $numero = 0;
-        while ($filas) {
-            $numero = $numero + 1;
-            echo $numero;
-           if($numero>19){
-                return true;
-                
-
-           } else
-           {
-            return false;
-           }
-        }
-        mysqli_close($con);
-    }
-
-    public function insertar($correo, $contrasena, $nombre){
-
-      $con = conectar();
-      $sql = "INSERT INTO user (nombre, correo, contraseña, estado) VALUES ('".$nombre."', '".$correo."', '".$contrasena."', 'activado')";  
-      $query = mysqli_query($con,$sql);
-      if($query){
-
-        header("location: Tabla.php");
-       
-      }else{
-        echo "<center>NO SE PUDO CREAR<center/>";
-    
-      }
-      mysqli_close($con);
-    }
-    public function Editar(Usuario $u){
-
-        $con = conectar();
-        $sql = "UPDATE `user` SET `nombre` = '".$u ->getNombre()."', `correo` = '".$u ->getCorreo()."' WHERE `id` = ".$u ->getId()."";  
-        $query = mysqli_query($con,$sql);
-        if($query){
-
-            return true;
-         
-        }else{
-            return false;
-      
-        }
-        mysqli_close($con);
-      }
-
-    public function Eliminar($id){
-      $con = conectar();
-    $sql = "UPDATE `user` SET `estado` = 'inactivo' WHERE `user`.`id` =".$id."";  
-    $query = mysqli_query($con,$sql);
-    $resultado = false; 
-    if($query){
-      $resultado = true;
-      return $resultado;
-     
-    }else{
-      return $resultado;
-  
-    }
-    mysqli_close($con);
-  }
-  public function Activar($id){
-    $con = conectar();
-  $sql = "UPDATE `user` SET `estado` = 'activado' WHERE `user`.`id` =".$id."";  
-  $query = mysqli_query($con,$sql);
-  $resultado = false; 
-  if($query){
-    $resultado = true;
-    return $resultado;
-   
-  }else{
-    return $resultado;
-
-  }
-  mysqli_close($con);
-}
-
-  public function verusuario($id){
-    $u = new Usuario();
-    $con = conectar();
-  $sql = "SELECT*FROM user WHERE id=".$id." AND estado='activado'";  
-  $result = mysqli_query($con, $sql);
-   $mostrar = mysqli_fetch_array($result);
-   $u ->setNombre($mostrar['nombre']);
-   $u -> setCorreo($mostrar['correo']);
-    return $u; 
-    mysqli_close($con);
-  
-}
-public function reserva(Usuario $u){
-        $fecha = date('m/d/Y');
-    $con = conectar();
-    $sql = "INSERT INTO reservas (nombre,cedula, personas, cumpleanos, correo, discoteca, fecha) VALUES ('".$u->getNombre()."', '".$u->getCedula()."',
-     '".$u->getPersonas()."', '".$u->getCumpleaños()."', '".$u->getCorreo()."', '".$u->getDiscoteca()."','$fecha')";  
-    $query = mysqli_query($con,$sql);
-    if($query){
-
-      header("location: ../index.php");
-     
-    }else{
-      echo "<center>NO SE PUDO CREAR<center/>";
-  
-    }
-        mysqli_close($con);
-  }
-
   public function contardescuentos($id, $razon, $variable){
     $con = conectar();
     if ($razon== "ALL") {
-      $sql = "SELECT*FROM productos WHERE descuento > 0 AND categoria='$id' AND estado = 'activo'";
+      $sql = "SELECT*FROM productos WHERE descuento > 0 AND categoria=$id AND estado = 'activo'";
     }if ($razon == "empresa") {
       if (is_numeric($variable)) {
-      $sql = "SELECT*FROM productos WHERE descuento > 0 AND categoria='$id' AND id_empresa =$variable AND estado = 'activo'";}
+      $sql = "SELECT*FROM productos WHERE descuento > 0 AND categoria=$id AND id_empresa =$variable AND estado = 'activo'";}
       else{
         $sql = "SELECT * FROM users WHERE nombre='$variable' OR nombre REGEXP '".strtolower($variable)."' AND estado='activo'";
          $result5 = mysqli_query($con, $sql);
          if ($mostrar5 = mysqli_fetch_array($result5)) {
              $variable = $mostrar5['id'];
          }
-         $sql = "SELECT*FROM productos WHERE descuento > 0 AND categoria='$id' AND id_empresa=$variable AND estado = 'activo'";
+         $sql = "SELECT*FROM productos WHERE descuento > 0 AND categoria=$id AND id_empresa=$variable AND estado = 'activo'";
 
       }
     }
   
     if ($razon == "search") {
-      $sql = "SELECT*FROM productos WHERE descuento > 0 AND categoria='$id' AND (nombre= '$variable' OR nombre REGEXP '".strtolower($variable)."' OR descripcion REGEXP '".strtolower($variable)."') AND estado = 'activo'";
+      $sql = "SELECT*FROM productos WHERE descuento > 0 AND categoria=$id AND (nombre= '$variable' OR nombre REGEXP '".strtolower($variable)."' OR descripcion REGEXP '".strtolower($variable)."') AND estado = 'activo'";
     }
     if ($razon == "categoria"){
-      $sql = "SELECT*FROM productos WHERE descuento > 0 AND categoria='$id' AND estado = 'activo'";
+      $sql = "SELECT*FROM productos WHERE descuento > 0 AND categoria=$id AND estado = 'activo'";
     }
     
     $result = mysqli_query($con, $sql);
@@ -344,5 +159,897 @@ public function reserva(Usuario $u){
 
 
 }
+
+public function search(){
+
+    $con = conectar();
+    $sql = "SELECT * FROM categorias WHERE categoria='$_GET[search]' OR categoria  REGEXP '".strtolower($_GET['search'])."'";
+     $result5 = mysqli_query($con, $sql);
+     if ($mostrar5 = mysqli_fetch_array($result5)) {
+         $categoria2 = $mostrar5['id'];
+     }else {
+        $categoria2 = "";
+     }
+     $sql = "SELECT * FROM users WHERE (nombre='$_GET[search]' OR nombre  REGEXP '".strtolower($_GET['search'])."') AND estado = 'activo'";
+     $result5 = mysqli_query($con, $sql);
+     if ($mostrar5 = mysqli_fetch_array($result5)) {
+         $idempresa = $mostrar5['id'];
+     }else {
+        $idempresa= "";
+     }
+    if ($categoria2 == "" && $idempresa == "") {
+        if (isset($_GET['descuento'])) {
+          if (isset($_GET['filtro'])) {
+         
+            if ($_GET['filtro'] == 'mayorprecio') {
+          
+              $sql = "SELECT id, nombre, precio, descuento, id_empresa, precio - (precio * (descuento / 100)) AS precio_con_descuento FROM productos 
+              WHERE (nombre= '$_GET[search]' OR nombre REGEXP '".strtolower($_GET['search'])."' OR descripcion REGEXP '".strtolower($_GET['search'])."') 
+               AND categoria=$categoria2 AND estado = 'activo' AND descuento>0 
+              ORDER BY precio_con_descuento DESC";
+            
+          }else if ($_GET['filtro'] == 'menorprecio') {
+  
+            $sql = "SELECT id, nombre, precio, descuento, id_empresa, precio - (precio * (descuento / 100)) AS precio_con_descuento FROM productos 
+              WHERE  (nombre= '$_GET[search]' OR nombre REGEXP '".strtolower($_GET['search'])."' OR descripcion REGEXP '".strtolower($_GET['search'])."') 
+              AND categoria=$categoria2 AND  estado = 'activo' AND descuento>0 
+              ORDER BY precio_con_descuento ASC";
+          }
+          else
+          if ($_GET['filtro'] == 'recientes') {
+            $sql = "SELECT * FROM productos WHERE (nombre= '$_GET[search]' OR nombre REGEXP '".strtolower($_GET['search'])."' OR descripcion REGEXP '".strtolower($_GET['search'])."') 
+            AND categoria=$categoria2 AND estado = 'activo' ORDER BY id DESC";
+          }
+          }
+          else {
+          
+            $sql = "SELECT * FROM productos WHERE (nombre= '$_GET[search]' OR nombre REGEXP '".strtolower($_GET['search'])."' OR descripcion REGEXP '".strtolower($_GET['search'])."') AND descuento > 0 AND estado='activo'";
+            }
+        }
+        
+        else if (isset($_GET['mascomprados'])) {
+
+          if (isset($_GET['filtro'])) {
+         
+            if ($_GET['filtro'] == 'mayorprecio') {
+          
+              $sql = "SELECT DISTINCT productos.* FROM productos 
+              JOIN carrito_compras ON productos.id = carrito_compras.id_producto 
+              WHERE (nombre= '$_GET[search]' OR nombre REGEXP '".strtolower($_GET['search'])."' OR descripcion REGEXP '".strtolower($_GET['search'])."')
+             AND categoria=$categoria2  AND carrito_compras.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.precio DESC";
+            
+          }else if ($_GET['filtro'] == 'menorprecio') {
+  
+            $sql = "SELECT DISTINCT productos.* FROM productos 
+            JOIN carrito_compras ON productos.id = carrito_compras.id_producto 
+            WHERE (nombre= '$_GET[search]' OR nombre REGEXP '".strtolower($_GET['search'])."' OR descripcion REGEXP '".strtolower($_GET['search'])."')
+            AND categoria=$categoria2 AND carrito_compras.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.precio ASC";
+          }
+          else
+          if ($_GET['filtro'] == 'recientes') {
+            $sql = "SELECT DISTINCT productos.* FROM productos 
+            JOIN carrito_compras ON productos.id = carrito_compras.id_producto 
+            WHERE (nombre= '$_GET[search]' OR nombre REGEXP '".strtolower($_GET['search'])."' OR descripcion REGEXP '".strtolower($_GET['search'])."')
+             AND categoria=$categoria2 AND carrito_compras.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.id DESC";
+          }
+        }else {
+         $sql = "SELECT DISTINCT productos.* FROM productos 
+         JOIN carrito_compras ON productos.id = carrito_compras.id_producto 
+         WHERE (nombre= '$_GET[search]' OR nombre REGEXP '".strtolower($_GET['search'])."' OR descripcion REGEXP '".strtolower($_GET['search'])."')
+        AND categoria=$categoria2  AND carrito_compras.estado = 'activo' AND productos.estado = 'activo'";}
+        
+      }
+        else if (isset($_GET['populares'])) {
+          if (isset($_GET['filtro'])) {
+         
+            if ($_GET['filtro'] == 'mayorprecio') {
+          
+              $sql = "SELECT DISTINCT productos.* FROM productos 
+         JOIN lista_deseos ON productos.id = lista_deseos.id_producto 
+         WHERE (nombre= '$_GET[search]' OR nombre REGEXP '".strtolower($_GET['search'])."' OR descripcion REGEXP '".strtolower($_GET['search'])."')
+          AND categoria=$categoria2 AND lista_deseos.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.precio DESC";
+            
+          }else if ($_GET['filtro'] == 'menorprecio') {
+  
+            $sql = "SELECT DISTINCT productos.* FROM productos 
+            JOIN lista_deseos ON productos.id = lista_deseos.id_producto 
+            WHERE (nombre= '$_GET[search]' OR nombre REGEXP '".strtolower($_GET['search'])."' OR descripcion REGEXP '".strtolower($_GET['search'])."')
+           AND categoria=$categoria2 AND lista_deseos.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.precio ASC";
+          }
+          else
+          if ($_GET['filtro'] == 'recientes') {
+            $sql = "SELECT DISTINCT productos.* FROM productos 
+            JOIN lista_deseos ON productos.id = lista_deseos.id_producto 
+            WHERE (nombre= '$_GET[search]' OR nombre REGEXP '".strtolower($_GET['search'])."' OR descripcion REGEXP '".strtolower($_GET['search'])."')
+             AND categoria=$categoria2 AND lista_deseos.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.id DESC";
+          }
+        }else {
+          $sql = "SELECT DISTINCT productos.* FROM productos 
+         JOIN lista_deseos ON productos.id = lista_deseos.id_producto 
+         WHERE (nombre= '$_GET[search]' OR nombre REGEXP '".strtolower($_GET['search'])."' OR descripcion REGEXP '".strtolower($_GET['search'])."')
+         AND categoria=$categoria2 AND lista_deseos.estado = 'activo' AND productos.estado = 'activo'";
+        }
+      }
+      else if (isset($_GET['puntuados'])) {
+          if (isset($_GET['filtro'])) {
+         
+            if ($_GET['filtro'] == 'mayorprecio') {
+            if (isset($_GET['descuento'])) {
+              $sql = "SELECT*FROM productos WHERE (nombre= '$_GET[search]' OR nombre REGEXP '".strtolower($_GET['search'])."' OR descripcion REGEXP '".strtolower($_GET['search'])."') 
+              AND categoria=$categoria2 AND calificacion > 3.8 AND estado='activo' ORDER BY precio DESC";
+            }
+          }else if ($_GET['filtro'] == 'menorprecio') {
+  
+            $sql = "SELECT*FROM productos WHERE (nombre= '$_GET[search]' OR nombre REGEXP '".strtolower($_GET['search'])."' OR descripcion REGEXP '".strtolower($_GET['search'])."') 
+            AND categoria=$categoria2 AND calificacion > 3.8 AND estado='activo' ORDER BY precio ASC";
+          }
+          else
+          if ($_GET['filtro'] == 'recientes') {
+            $sql = "SELECT*FROM productos WHERE (nombre= '$_GET[search]' OR nombre REGEXP '".strtolower($_GET['search'])."' OR descripcion REGEXP '".strtolower($_GET['search'])."') 
+            AND categoria=$categoria2 AND calificacion > 3.8 AND estado='activo' ORDER BY id DESC";
+          }
+          }else {
+          $sql = "SELECT*FROM productos WHERE (nombre= '$_GET[search]' OR nombre REGEXP '".strtolower($_GET['search'])."' OR descripcion REGEXP '".strtolower($_GET['search'])."') 
+          AND categoria=$categoria2 AND calificacion > 3.8 AND estado='activo'";}
+        } 
+        else if (isset($_GET['filtro'])) {
+         
+          if ($_GET['filtro'] == 'mayorprecio') {
+            $sql = "SELECT*FROM productos WHERE (nombre= '$_GET[search]' OR nombre REGEXP '".strtolower($_GET['search'])."' OR descripcion REGEXP '".strtolower($_GET['search'])."') 
+            AND estado='activo' ORDER BY precio DESC";
+        }else if ($_GET['filtro'] == 'menorprecio') {
+
+          $sql = "SELECT*FROM productos WHERE (nombre= '$_GET[search]' OR nombre REGEXP '".strtolower($_GET['search'])."' OR descripcion REGEXP '".strtolower($_GET['search'])."') 
+           AND estado='activo' ORDER BY precio ASC";
+        }
+        else
+        if ($_GET['filtro'] == 'recientes') {
+          $sql = "SELECT*FROM productos WHERE (nombre= '$_GET[search]' OR nombre REGEXP '".strtolower($_GET['search'])."' OR descripcion REGEXP '".strtolower($_GET['search'])."') 
+           AND estado='activo' ORDER BY id DESC";
+        }
+        }
+        else {
+          $sql = "SELECT * FROM productos 
+          WHERE (nombre= '$_GET[search]' OR nombre REGEXP '".strtolower($_GET['search'])."' OR descripcion REGEXP '".strtolower($_GET['search'])."') 
+          AND estado='activo'";
+
+        }
+
+
+    }else if (!$categoria2 == "" ) {
+      if (isset($_GET['descuento'])) {
+        if (isset($_GET['filtro'])) {
+       
+          if ($_GET['filtro'] == 'mayorprecio') {
+        
+            $sql = "SELECT id, nombre, precio, descuento,id_empresa, precio - (precio * (descuento / 100)) AS precio_con_descuento FROM productos 
+            WHERE categoria = $categoria2 
+            AND  estado = 'activo' AND descuento>0 
+            ORDER BY precio_con_descuento DESC";
+          
+        }else if ($_GET['filtro'] == 'menorprecio') {
+
+          $sql = "SELECT id, nombre, precio, descuento,id_empresa, precio - (precio * (descuento / 100)) AS precio_con_descuento FROM productos 
+            WHERE categoria = $categoria2
+            AND  estado = 'activo' AND descuento>0 
+            ORDER BY precio_con_descuento ASC";
+        }
+        else
+        if ($_GET['filtro'] == 'recientes') {
+          $sql = "SELECT * FROM productos WHERE categoria = $categoria2 
+          AND estado = 'activo' ORDER BY id DESC";
+        }
+        }else {
+        
+        $sql = "SELECT * FROM productos WHERE categoria = $categoria2
+         AND descuento > 0 AND estado='activo'";
+        }
+      }
+      else if (isset($_GET['mascomprados'])) {
+
+        if (isset($_GET['filtro'])) {
+       
+          if ($_GET['filtro'] == 'mayorprecio') {
+        
+            $sql = "SELECT DISTINCT productos.* FROM productos 
+            JOIN carrito_compras ON productos.id = carrito_compras.id_producto 
+            WHERE categoria = $categoria2
+            AND carrito_compras.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.precio DESC";
+          
+        }else if ($_GET['filtro'] == 'menorprecio') {
+
+          $sql = "SELECT DISTINCT productos.* FROM productos 
+          JOIN carrito_compras ON productos.id = carrito_compras.id_producto 
+          WHERE categoria = $categoria2
+          AND carrito_compras.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.precio ASC";
+        }
+        else
+        if ($_GET['filtro'] == 'recientes') {
+          $sql = "SELECT DISTINCT productos.* FROM productos 
+          JOIN carrito_compras ON productos.id = carrito_compras.id_producto 
+          WHERE categoria = $categoria2
+          AND carrito_compras.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.id DESC";
+        }
+      }else {
+       $sql = "SELECT DISTINCT productos.* FROM productos 
+       JOIN carrito_compras ON productos.id = carrito_compras.id_producto 
+       WHERE categoria = $categoria2
+       AND carrito_compras.estado = 'activo' AND productos.estado = 'activo'";}
+      
+    }
+      else if (isset($_GET['populares'])) {
+        if (isset($_GET['filtro'])) {
+       
+          if ($_GET['filtro'] == 'mayorprecio') {
+        
+            $sql = "SELECT DISTINCT productos.* FROM productos 
+       JOIN lista_deseos ON productos.id = lista_deseos.id_producto 
+       WHERE categoria = $categoria2
+       AND lista_deseos.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.precio DESC";
+          
+        }else if ($_GET['filtro'] == 'menorprecio') {
+
+          $sql = "SELECT DISTINCT productos.* FROM productos 
+          JOIN lista_deseos ON productos.id = lista_deseos.id_producto 
+          WHERE categoria = $categoria2
+          AND lista_deseos.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.precio ASC";
+        }
+        else
+        if ($_GET['filtro'] == 'recientes') {
+          $sql = "SELECT DISTINCT productos.* FROM productos 
+          JOIN lista_deseos ON productos.id = lista_deseos.id_producto 
+          WHERE categoria = $categoria2
+          AND lista_deseos.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.id DESC";
+        }
+      }else {
+        $sql = "SELECT DISTINCT productos.* FROM productos 
+       JOIN lista_deseos ON productos.id = lista_deseos.id_producto 
+       WHERE categoria = $categoria2
+       AND lista_deseos.estado = 'activo' AND productos.estado = 'activo'";
+      }
+    }
+    else if (isset($_GET['puntuados'])) {
+        if (isset($_GET['filtro'])) {
+       
+          if ($_GET['filtro'] == 'mayorprecio') {
+          if (isset($_GET['descuento'])) {
+            $sql = "SELECT*FROM productos WHERE categoria = $categoria2 
+            AND calificacion > 3.8 AND estado='activo' ORDER BY precio DESC";
+          }
+        }else if ($_GET['filtro'] == 'menorprecio') {
+
+          $sql = "SELECT*FROM productos WHERE categoria = $categoria2
+          AND calificacion > 3.8 AND estado='activo' ORDER BY precio ASC";
+        }
+        else
+        if ($_GET['filtro'] == 'recientes') {
+          $sql = "SELECT*FROM productos WHERE categoria = $categoria2
+          AND calificacion > 3.8 AND estado='activo' ORDER BY id DESC";
+        }
+        }else {
+        $sql = "SELECT*FROM productos WHERE categoria = $categoria2
+        AND calificacion > 3.8 AND estado='activo'";}
+      } 
+      else if (isset($_GET['filtro'])) {
+       
+        if ($_GET['filtro'] == 'mayorprecio') {
+          $sql = "SELECT*FROM productos WHERE categoria = $categoria2
+          AND estado='activo' ORDER BY precio DESC";
+      }else if ($_GET['filtro'] == 'menorprecio') {
+
+        $sql = "SELECT*FROM productos WHERE categoria = $categoria2 
+         AND estado='activo' ORDER BY precio ASC";
+      }
+      else
+      if ($_GET['filtro'] == 'recientes') {
+        $sql = "SELECT*FROM productos WHERE categoria = $categoria2 
+         AND estado='activo' ORDER BY id DESC";
+      }
+      }
+      else {
+        $sql = "SELECT * FROM productos 
+        WHERE categoria = $categoria2
+        AND estado='activo'";
+
+      }
+    } else if (!$idempresa == "") {
+      if (isset($_GET['descuento'])) {
+        if (isset($_GET['filtro'])) {
+       
+          if ($_GET['filtro'] == 'mayorprecio') {
+        
+            $sql = "SELECT id, nombre, precio, descuento,id_empresa, precio - (precio * (descuento / 100)) AS precio_con_descuento FROM productos 
+            WHERE id_empresa = $idempresa
+            AND  estado = 'activo' AND descuento>0 
+            ORDER BY precio_con_descuento DESC";
+          
+        }else if ($_GET['filtro'] == 'menorprecio') {
+
+          $sql = "SELECT id, nombre, precio, descuento,id_empresa, precio - (precio * (descuento / 100)) AS precio_con_descuento FROM productos 
+            WHERE  id_empresa = $idempresa
+            AND  estado = 'activo' AND descuento>0 
+            ORDER BY precio_con_descuento ASC";
+        }
+        else
+        if ($_GET['filtro'] == 'recientes') {
+          $sql = "SELECT * FROM productos 
+          WHERE id_empresa = $idempresa
+          AND estado = 'activo' ORDER BY id DESC";
+        }
+        }else {
+        
+        $sql = "SELECT * FROM productos WHERE id_empresa = $idempresa
+         AND descuento > 0 AND estado='activo'";
+        }
+      }
+      else if (isset($_GET['mascomprados'])) {
+
+        if (isset($_GET['filtro'])) {
+       
+          if ($_GET['filtro'] == 'mayorprecio') {
+        
+            $sql = "SELECT DISTINCT productos.* FROM productos 
+            JOIN carrito_compras ON productos.id = carrito_compras.id_producto 
+            WHERE id_empresa = $idempresa
+            AND carrito_compras.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.precio DESC";
+          
+        }else if ($_GET['filtro'] == 'menorprecio') {
+
+          $sql = "SELECT DISTINCT productos.* FROM productos 
+          JOIN carrito_compras ON productos.id = carrito_compras.id_producto 
+          WHERE id_empresa = $idempresa
+          AND carrito_compras.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.precio ASC";
+        }
+        else
+        if ($_GET['filtro'] == 'recientes') {
+          $sql = "SELECT DISTINCT productos.* FROM productos 
+          JOIN carrito_compras ON productos.id = carrito_compras.id_producto 
+          WHERE id_empresa = $idempresa
+          AND carrito_compras.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.id DESC";
+        }
+      }else {
+       $sql = "SELECT DISTINCT productos.* FROM productos 
+       JOIN carrito_compras ON productos.id = carrito_compras.id_producto 
+       WHERE id_empresa = $idempresa
+       AND carrito_compras.estado = 'activo' AND productos.estado = 'activo'";}
+      
+    }
+      else if (isset($_GET['populares'])) {
+        if (isset($_GET['filtro'])) {
+       
+          if ($_GET['filtro'] == 'mayorprecio') {
+        
+            $sql = "SELECT DISTINCT productos.* FROM productos 
+       JOIN lista_deseos ON productos.id = lista_deseos.id_producto 
+       WHERE id_empresa = $idempresa
+       AND lista_deseos.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.precio DESC";
+          
+        }else if ($_GET['filtro'] == 'menorprecio') {
+
+          $sql = "SELECT DISTINCT productos.* FROM productos 
+          JOIN lista_deseos ON productos.id = lista_deseos.id_producto 
+          WHERE id_empresa = $idempresa
+          AND lista_deseos.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.precio ASC";
+        }
+        else
+        if ($_GET['filtro'] == 'recientes') {
+          $sql = "SELECT DISTINCT productos.* FROM productos 
+          JOIN lista_deseos ON productos.id = lista_deseos.id_producto 
+          WHERE id_empresa = $idempresa
+          AND lista_deseos.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.id DESC";
+        }
+      }else {
+        $sql = "SELECT DISTINCT productos.* FROM productos 
+       JOIN lista_deseos ON productos.id = lista_deseos.id_producto 
+       WHERE cid_empresa = $idempresa
+       AND lista_deseos.estado = 'activo' AND productos.estado = 'activo'";
+      }
+    }
+    else if (isset($_GET['puntuados'])) {
+        if (isset($_GET['filtro'])) {
+       
+          if ($_GET['filtro'] == 'mayorprecio') {
+          if (isset($_GET['descuento'])) {
+            $sql = "SELECT*FROM productos 
+            WHERE id_empresa = $idempresa
+            AND calificacion > 3.8 AND estado='activo' ORDER BY precio DESC";
+          }
+        }else if ($_GET['filtro'] == 'menorprecio') {
+
+          $sql = "SELECT*FROM productos 
+          WHERE id_empresa = $idempresa
+          AND calificacion > 3.8 AND estado='activo' ORDER BY precio ASC";
+        }
+        else
+        if ($_GET['filtro'] == 'recientes') {
+          $sql = "SELECT*FROM productos 
+          WHERE id_empresa = $idempresa
+          AND calificacion > 3.8 AND estado='activo' ORDER BY id DESC";
+        }
+        }else {
+        $sql = "SELECT*FROM productos 
+        WHERE id_empresa = $idempresa
+        AND calificacion > 3.8 AND estado='activo'";}
+      } 
+      else if (isset($_GET['filtro'])) {
+       
+        if ($_GET['filtro'] == 'mayorprecio') {
+          $sql = "SELECT*FROM productos
+           WHERE id_empresa = $idempresa
+          AND estado='activo' ORDER BY precio DESC";
+      }else if ($_GET['filtro'] == 'menorprecio') {
+
+        $sql = "SELECT*FROM productos 
+        WHERE id_empresa = $idempresa
+         AND estado='activo' ORDER BY precio ASC";
+      }
+      else
+      if ($_GET['filtro'] == 'recientes') {
+        $sql = "SELECT*FROM productos 
+        WHERE id_empresa = $idempresa
+        AND estado='activo' ORDER BY id DESC";
+      }
+      }
+      else {
+        $sql = "SELECT * FROM productos 
+        WHERE id_empresa = $idempresa
+        AND estado='activo'";
+
+      }
+    }
+
+    mysqli_close($con);
+    return $sql;
+}
+
+public function categoria(){
+  $con = conectar();
+  $sql = "SELECT * FROM categorias WHERE categoria='$_GET[categoria]' OR categoria  REGEXP '".strtolower($_GET['categoria'])."'";
+   $result5 = mysqli_query($con, $sql);
+   if ($mostrar5 = mysqli_fetch_array($result5)) {
+       $categoria2 = $mostrar5['id'];
+   }
+
+  if (isset($_GET['descuento'])) {
+    if (isset($_GET['filtro'])) {
+   
+      if ($_GET['filtro'] == 'mayorprecio') {
+    
+        $sql = "SELECT id, nombre, precio, descuento, id_empresa ,  precio - (precio * (descuento / 100)) AS precio_con_descuento FROM productos 
+        WHERE categoria = $categoria2 
+        AND  estado = 'activo' AND descuento>0 
+        ORDER BY precio_con_descuento DESC";
+      
+    }else if ($_GET['filtro'] == 'menorprecio') {
+
+      $sql = "SELECT id, nombre, precio, descuento, id_empresa , precio - (precio * (descuento / 100)) AS precio_con_descuento FROM productos 
+        WHERE categoria = $categoria2
+        AND  estado = 'activo' AND descuento>0 
+        ORDER BY precio_con_descuento ASC";
+    }
+    else
+    if ($_GET['filtro'] == 'recientes') {
+      $sql = "SELECT id, nombre, precio, descuento, id_empresa , precio - (precio * (descuento / 100)) AS precio_con_descuento FROM productos  
+      WHERE categoria = $categoria2 
+      AND estado = 'activo'  AND descuento>0  ORDER BY id DESC";
+    }
+    }else {
+    
+    $sql = "SELECT * FROM productos WHERE categoria = $categoria2
+     AND descuento > 0 AND estado='activo'";
+    }
+  }
+  else if (isset($_GET['mascomprados'])) {
+
+    if (isset($_GET['filtro'])) {
+   
+      if ($_GET['filtro'] == 'mayorprecio') {
+    
+        $sql = "SELECT DISTINCT productos.* FROM productos 
+        JOIN carrito_compras ON productos.id = carrito_compras.id_producto 
+        WHERE categoria = $categoria2
+        AND carrito_compras.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.precio DESC";
+      
+    }else if ($_GET['filtro'] == 'menorprecio') {
+
+      $sql = "SELECT DISTINCT productos.* FROM productos 
+      JOIN carrito_compras ON productos.id = carrito_compras.id_producto 
+      WHERE categoria = $categoria2
+      AND carrito_compras.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.precio ASC";
+    }
+    else
+    if ($_GET['filtro'] == 'recientes') {
+      $sql = "SELECT DISTINCT productos.* FROM productos 
+      JOIN carrito_compras ON productos.id = carrito_compras.id_producto 
+      WHERE categoria = $categoria2
+      AND carrito_compras.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.id DESC";
+    }
+  }else {
+   $sql = "SELECT DISTINCT productos.* FROM productos 
+   JOIN carrito_compras ON productos.id = carrito_compras.id_producto 
+   WHERE categoria = $categoria2
+   AND carrito_compras.estado = 'activo' AND productos.estado = 'activo'";}
+  
+}
+  else if (isset($_GET['populares'])) {
+    if (isset($_GET['filtro'])) {
+   
+      if ($_GET['filtro'] == 'mayorprecio') {
+    
+        $sql = "SELECT DISTINCT productos.* FROM productos 
+   JOIN lista_deseos ON productos.id = lista_deseos.id_producto 
+   WHERE categoria = $categoria2
+   AND lista_deseos.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.precio DESC";
+      
+    }else if ($_GET['filtro'] == 'menorprecio') {
+
+      $sql = "SELECT DISTINCT productos.* FROM productos 
+      JOIN lista_deseos ON productos.id = lista_deseos.id_producto 
+      WHERE categoria = $categoria2
+      AND lista_deseos.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.precio ASC";
+    }
+    else
+    if ($_GET['filtro'] == 'recientes') {
+      $sql = "SELECT DISTINCT productos.* FROM productos 
+      JOIN lista_deseos ON productos.id = lista_deseos.id_producto 
+      WHERE categoria = $categoria2
+      AND lista_deseos.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.id DESC";
+    }
+  }else {
+    $sql = "SELECT DISTINCT productos.* FROM productos 
+   JOIN lista_deseos ON productos.id = lista_deseos.id_producto 
+   WHERE categoria = $categoria2
+   AND lista_deseos.estado = 'activo' AND productos.estado = 'activo'";
+  }
+}
+else if (isset($_GET['puntuados'])) {
+    if (isset($_GET['filtro'])) {
+   
+      if ($_GET['filtro'] == 'mayorprecio') {
+      if (isset($_GET['descuento'])) {
+        $sql = "SELECT*FROM productos WHERE categoria = $categoria2 
+        AND calificacion > 3.8 AND estado='activo' ORDER BY precio DESC";
+      }
+    }else if ($_GET['filtro'] == 'menorprecio') {
+
+      $sql = "SELECT*FROM productos WHERE categoria = $categoria2
+      AND calificacion > 3.8 AND estado='activo' ORDER BY precio ASC";
+    }
+    else
+    if ($_GET['filtro'] == 'recientes') {
+      $sql = "SELECT*FROM productos WHERE categoria = $categoria2
+      AND calificacion > 3.8 AND estado='activo' ORDER BY id DESC";
+    }
+    }else {
+    $sql = "SELECT*FROM productos WHERE categoria = $categoria2
+    AND calificacion > 3.8 AND estado='activo'";}
+  } 
+  else if (isset($_GET['filtro'])) {
+   
+    if ($_GET['filtro'] == 'mayorprecio') {
+      $sql = "SELECT*FROM productos WHERE categoria = $categoria2
+      AND estado='activo' ORDER BY precio DESC";
+  }else if ($_GET['filtro'] == 'menorprecio') {
+
+    $sql = "SELECT*FROM productos WHERE categoria = $categoria2 
+     AND estado='activo' ORDER BY precio ASC";
+  }
+  else
+  if ($_GET['filtro'] == 'recientes') {
+    $sql = "SELECT*FROM productos WHERE categoria = $categoria2 
+     AND estado='activo' ORDER BY id DESC";
+  }
+  }
+  else {
+    $sql = "SELECT * FROM productos 
+    WHERE categoria = $categoria2
+    AND estado='activo'";
+
+  }
+  return $sql;
+}
+
+public function empresa(){
+
+  if (isset($_GET['categoria'])) {
+  $con = conectar();
+  $sql = "SELECT * FROM categorias WHERE categoria='$_GET[categoria]' OR categoria  REGEXP '".strtolower($_GET['categoria'])."'";
+   $result5 = mysqli_query($con, $sql);
+   if ($mostrar5 = mysqli_fetch_array($result5)) {
+       $categoria2 = $mostrar5['id'];
+   }
+  }
+   if ($_GET['empresa'] === "ALL" ) {
+
+    if (isset($_GET['descuento'])) {
+      if (isset($_GET['filtro'])) {
+     
+        if ($_GET['filtro'] == 'mayorprecio') {
+      
+          $sql = "SELECT id, nombre, precio, descuento, id_empresa , precio - (precio * (descuento / 100)) AS precio_con_descuento FROM productos 
+          WHERE categoria = $categoria2
+          AND  estado = 'activo' AND descuento>0 
+          ORDER BY precio_con_descuento DESC";
+        
+      }else if ($_GET['filtro'] == 'menorprecio') {
+  
+        $sql = "SELECT id, nombre, precio, descuento, id_empresa , precio - (precio * (descuento / 100)) AS precio_con_descuento FROM productos 
+          WHERE categoria = $categoria2
+          AND  estado = 'activo' AND descuento>0 
+          ORDER BY precio_con_descuento ASC";
+      }
+      else
+      if ($_GET['filtro'] == 'recientes') {
+        $sql = "SELECT * FROM productos 
+        WHERE categoria = $categoria2
+        AND estado = 'activo' ORDER BY id DESC";
+      }
+      }else {
+      
+      $sql = "SELECT * FROM productos 
+      WHERE categoria = $categoria2
+       AND descuento > 0 AND estado='activo'";
+      }
+    }
+    else if (isset($_GET['mascomprados'])) {
+  
+      if (isset($_GET['filtro'])) {
+     
+        if ($_GET['filtro'] == 'mayorprecio') {
+      
+          $sql = "SELECT DISTINCT productos.* FROM productos 
+          JOIN carrito_compras ON productos.id = carrito_compras.id_producto 
+          WHERE categoria = $categoria2
+          AND carrito_compras.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.precio DESC";
+        
+      }else if ($_GET['filtro'] == 'menorprecio') {
+  
+        $sql = "SELECT DISTINCT productos.* FROM productos 
+        JOIN carrito_compras ON productos.id = carrito_compras.id_producto 
+        WHERE categoria = $categoria2
+        AND carrito_compras.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.precio ASC";
+      }
+      else
+      if ($_GET['filtro'] == 'recientes') {
+        $sql = "SELECT DISTINCT productos.* FROM productos 
+        JOIN carrito_compras ON productos.id = carrito_compras.id_producto 
+        WHERE categoria = $categoria2
+        AND carrito_compras.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.id DESC";
+      }
+    }else {
+     $sql = "SELECT DISTINCT productos.* FROM productos 
+     JOIN carrito_compras ON productos.id = carrito_compras.id_producto 
+     WHERE categoria = $categoria2
+     AND carrito_compras.estado = 'activo' AND productos.estado = 'activo'";}
+    
+  }
+    else if (isset($_GET['populares'])) {
+      if (isset($_GET['filtro'])) {
+     
+        if ($_GET['filtro'] == 'mayorprecio') {
+      
+          $sql = "SELECT DISTINCT productos.* FROM productos 
+     JOIN lista_deseos ON productos.id = lista_deseos.id_producto 
+     WHERE categoria = $categoria2
+     AND lista_deseos.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.precio DESC";
+        
+      }else if ($_GET['filtro'] == 'menorprecio') {
+  
+        $sql = "SELECT DISTINCT productos.* FROM productos 
+        JOIN lista_deseos ON productos.id = lista_deseos.id_producto 
+        WHERE categoria = $categoria2
+        AND lista_deseos.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.precio ASC";
+      }
+      else
+      if ($_GET['filtro'] == 'recientes') {
+        $sql = "SELECT DISTINCT productos.* FROM productos 
+        JOIN lista_deseos ON productos.id = lista_deseos.id_producto 
+        WHERE categoria = $categoria2
+        AND lista_deseos.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.id DESC";
+      }
+    }else {
+      $sql = "SELECT DISTINCT productos.* FROM productos 
+     JOIN lista_deseos ON productos.id = lista_deseos.id_producto 
+     WHERE categoria = $categoria2
+     AND lista_deseos.estado = 'activo' AND productos.estado = 'activo'";
+    }
+  }
+  else if (isset($_GET['puntuados'])) {
+      if (isset($_GET['filtro'])) {
+     
+        if ($_GET['filtro'] == 'mayorprecio') {
+        if (isset($_GET['descuento'])) {
+          $sql = "SELECT*FROM productos 
+          WHERE categoria = $categoria2
+          AND calificacion > 3.8 AND estado='activo' ORDER BY precio DESC";
+        }
+      }else if ($_GET['filtro'] == 'menorprecio') {
+  
+        $sql = "SELECT*FROM productos 
+        WHERE categoria = $categoria2
+        AND calificacion > 3.8 AND estado='activo' ORDER BY precio ASC";
+      }
+      else
+      if ($_GET['filtro'] == 'recientes') {
+        $sql = "SELECT*FROM productos 
+        WHERE categoria = $categoria2
+        AND calificacion > 3.8 AND estado='activo' ORDER BY id DESC";
+      }
+      }else {
+      $sql = "SELECT*FROM productos 
+      WHERE categoria = $categoria2
+      AND calificacion > 3.8 AND estado='activo'";}
+    } 
+    else if (isset($_GET['filtro'])) {
+     
+      if ($_GET['filtro'] == 'mayorprecio') {
+        $sql = "SELECT*FROM productos
+         WHERE estado='activo' ORDER BY precio DESC";
+    }else if ($_GET['filtro'] == 'menorprecio') {
+  
+      $sql = "SELECT*FROM productos 
+      WHERE estado='activo' ORDER BY precio ASC";
+    }
+    else
+    if ($_GET['filtro'] == 'recientes') {
+      $sql = "SELECT*FROM productos 
+      WHERE estado='activo' ORDER BY id DESC";
+    }
+    }
+    else {
+      $sql = "SELECT * FROM productos 
+      WHERE estado='activo'";
+  
+    }
+
+   }else {
+  if (isset($_GET['descuento'])) {
+    if (isset($_GET['filtro'])) {
+   
+      if ($_GET['filtro'] == 'mayorprecio') {
+    
+        $sql = "SELECT id, nombre, precio, descuento, id_empresa, precio - (precio * (descuento / 100)) AS precio_con_descuento FROM productos 
+        WHERE id_empresa = $_GET[empresa] AND categoria = $categoria2
+        AND  estado = 'activo' AND descuento>0 
+        ORDER BY precio_con_descuento DESC";
+      
+    }else if ($_GET['filtro'] == 'menorprecio') {
+
+      $sql = "SELECT id, nombre, precio, descuento, id_empresa , precio - (precio * (descuento / 100)) AS precio_con_descuento FROM productos 
+        WHERE  id_empresa = $_GET[empresa] AND categoria = $categoria2
+        AND  estado = 'activo' AND descuento>0 
+        ORDER BY precio_con_descuento ASC";
+    }
+    else
+    if ($_GET['filtro'] == 'recientes') {
+      $sql = "SELECT * FROM productos 
+      WHERE id_empresa = $_GET[empresa] AND categoria = $categoria2
+      AND estado = 'activo' ORDER BY id DESC";
+    }
+    }else {
+    
+    $sql = "SELECT * FROM productos 
+    WHERE id_empresa = $_GET[empresa] AND categoria = $categoria2
+     AND descuento > 0 AND estado='activo'";
+    }
+  }
+  else if (isset($_GET['mascomprados'])) {
+
+    if (isset($_GET['filtro'])) {
+   
+      if ($_GET['filtro'] == 'mayorprecio') {
+    
+        $sql = "SELECT DISTINCT productos.* FROM productos 
+        JOIN carrito_compras ON productos.id = carrito_compras.id_producto 
+        WHERE id_empresa = $_GET[empresa] AND categoria = $categoria2
+        AND carrito_compras.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.precio DESC";
+      
+    }else if ($_GET['filtro'] == 'menorprecio') {
+
+      $sql = "SELECT DISTINCT productos.* FROM productos 
+      JOIN carrito_compras ON productos.id = carrito_compras.id_producto 
+      WHERE id_empresa = $_GET[empresa] AND categoria = $categoria2
+      AND carrito_compras.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.precio ASC";
+    }
+    else
+    if ($_GET['filtro'] == 'recientes') {
+      $sql = "SELECT DISTINCT productos.* FROM productos 
+      JOIN carrito_compras ON productos.id = carrito_compras.id_producto 
+      WHERE id_empresa = $_GET[empresa] AND categoria = $categoria2
+      AND carrito_compras.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.id DESC";
+    }
+  }else {
+   $sql = "SELECT DISTINCT productos.* FROM productos 
+   JOIN carrito_compras ON productos.id = carrito_compras.id_producto 
+   WHERE id_empresa = $_GET[empresa] AND categoria = $categoria2
+   AND carrito_compras.estado = 'activo' AND productos.estado = 'activo'";}
+  
+}
+  else if (isset($_GET['populares'])) {
+    if (isset($_GET['filtro'])) {
+   
+      if ($_GET['filtro'] == 'mayorprecio') {
+    
+        $sql = "SELECT DISTINCT productos.* FROM productos 
+   JOIN lista_deseos ON productos.id = lista_deseos.id_producto 
+   WHERE id_empresa = $_GET[empresa] AND categoria = $categoria2
+   AND lista_deseos.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.precio DESC";
+      
+    }else if ($_GET['filtro'] == 'menorprecio') {
+
+      $sql = "SELECT DISTINCT productos.* FROM productos 
+      JOIN lista_deseos ON productos.id = lista_deseos.id_producto 
+      WHERE id_empresa = $_GET[empresa] AND categoria = $categoria2
+      AND lista_deseos.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.precio ASC";
+    }
+    else
+    if ($_GET['filtro'] == 'recientes') {
+      $sql = "SELECT DISTINCT productos.* FROM productos 
+      JOIN lista_deseos ON productos.id = lista_deseos.id_producto 
+      WHERE id_empresa = $_GET[empresa] AND categoria = $categoria2
+      AND lista_deseos.estado = 'activo' AND productos.estado = 'activo' ORDER BY productos.id DESC";
+    }
+  }else {
+    $sql = "SELECT DISTINCT productos.* FROM productos 
+   JOIN lista_deseos ON productos.id = lista_deseos.id_producto 
+   WHERE id_empresa = $_GET[empresa] AND categoria = $categoria2
+   AND lista_deseos.estado = 'activo' AND productos.estado = 'activo'";
+  }
+}
+else if (isset($_GET['puntuados'])) {
+    if (isset($_GET['filtro'])) {
+   
+      if ($_GET['filtro'] == 'mayorprecio') {
+      if (isset($_GET['descuento'])) {
+        $sql = "SELECT*FROM productos 
+        WHERE id_empresa = $_GET[empresa] AND categoria = $categoria2
+        AND calificacion > 3.8 AND estado='activo' ORDER BY precio DESC";
+      }
+    }else if ($_GET['filtro'] == 'menorprecio') {
+
+      $sql = "SELECT*FROM productos 
+      WHERE id_empresa = $_GET[empresa] AND categoria = $categoria2
+      AND calificacion > 3.8 AND estado='activo' ORDER BY precio ASC";
+    }
+    else
+    if ($_GET['filtro'] == 'recientes') {
+      $sql = "SELECT*FROM productos 
+      WHERE id_empresa = $_GET[empresa] AND categoria = $categoria2
+      AND calificacion > 3.8 AND estado='activo' ORDER BY id DESC";
+    }
+    }else {
+    $sql = "SELECT*FROM productos 
+    WHERE id_empresa = $_GET[empresa] AND categoria = $categoria2
+    AND calificacion > 3.8 AND estado='activo'";}
+  } 
+  else if (isset($_GET['filtro'])) {
+   
+    if ($_GET['filtro'] == 'mayorprecio') {
+      $sql = "SELECT*FROM productos
+       WHERE id_empresa = $_GET[empresa]
+      AND estado='activo' ORDER BY precio DESC";
+  }else if ($_GET['filtro'] == 'menorprecio') {
+
+    $sql = "SELECT*FROM productos 
+    WHERE id_empresa = $_GET[empresa]
+     AND estado='activo' ORDER BY precio ASC";
+  }
+  else
+  if ($_GET['filtro'] == 'recientes') {
+    $sql = "SELECT*FROM productos 
+    WHERE id_empresa = $_GET[empresa]
+    AND estado='activo' ORDER BY id DESC";
+  }
+  }
+  else {
+    $sql = "SELECT * FROM productos 
+    WHERE id_empresa = $_GET[empresa]
+    AND estado='activo'";
+
+  }
+}
+return $sql;
+}
+
 }
 ?>

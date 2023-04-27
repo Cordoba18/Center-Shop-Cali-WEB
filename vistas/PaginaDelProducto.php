@@ -1,5 +1,6 @@
 <?php
 include_once("HeaderPrincipal.php");
+include_once("../sql/Conexion.php")
 ?>
 
 <head>
@@ -7,39 +8,98 @@ include_once("HeaderPrincipal.php");
     <link rel="stylesheet" href="../css/PaginaProductoCss.css">
 </head>
 <body>
-    <div class="imagenesp"> 
-    <a href=""><img src="../icons/ListaDeDeseos.png" alt=""></a> 
-    <img class="imagen_producto" src="../images/19_2023-02-24_11_25_27.png" alt="">
+  <div class="contenedor-pagina-productos">
+    <div class="contenedor-imagen-producto"> 
+    <a href=""><img class="icono-listadeseos" src="../icons/ListaDeDeseos.png" alt=""></a> 
+    <div id="carouselExample" class="carousel slide">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="imagen-producto" src="<?php 
+      $con = conectar();
+      $sql = "SELECT*FROM imagenes_productos WHERE id_producto=$_GET[producto] AND estado = 'activo'";
+      $result = mysqli_query($con, $sql);
+      if($mostrar = mysqli_fetch_array($result)) {
+        echo "../images/".$mostrar['imagen'];
+  }mysqli_close($con); ?>" class="d-block w-100" alt="...">
+    </div>
+    <?php 
+      $con = conectar();
+      $sql = "SELECT*FROM imagenes_productos WHERE id_producto=$_GET[producto] AND estado = 'activo'";
+      $result = mysqli_query($con, $sql);
+      $total = 0;
+      while($mostrar = mysqli_fetch_array($result)) {
+        if ($total == 0) {
+          $total = 1;
+        }else {
+        echo "<div class='carousel-item'>
+      <img class='imagen-producto' src='../images/$mostrar[imagen]' class='d-block w-100' alt=''>
+    </div>";}
+  }mysqli_close($con); ?>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
     </div> <br>
     <form action="" method="post">
-     <div class="cosas">
+     <div class="info-producto">
         <form action="" method="post">
-      <h1> TALLAS :</h1>  <select name="TALLAS" >
-            <option> L</option>
+          <div class="tallas">
+      <h1 class="titulo-tallas"> TALLAS :</h1>  <select name="TALLAS" >
+     <?php $con = conectar();
+  $sql = "SELECT*FROM tallas WHERE id_producto=$_GET[producto] AND estado = 'activo' ";
+  $result = mysqli_query($con, $sql);
+  while ($mostrar = mysqli_fetch_array($result)) {
+  echo "<option> $mostrar[talla] </option>";
+  }
+  mysqli_close($con)  ?>
             </select>
-            <h1> COLORES :</h1>  <select name="COLORES" >
-          <option> AZUL</option>
+            </div>
+            <div class="colores">
+            <h1 class="titulo-colores"> COLORES :</h1>  <select name="COLORES" >
+            <?php $con = conectar();
+  $sql = "SELECT*FROM colores WHERE id_producto=$_GET[producto] AND estado = 'activo' ";
+  $result = mysqli_query($con, $sql);
+  while ($mostrar = mysqli_fetch_array($result)) {
+  echo "<option> $mostrar[color] </option>";
+  }
+  mysqli_close($con)  ?>
         </select>
-        <h1> CALIFICANOS :</h1>  <select name="CALIFICACION">
+        </div>
+        <div class="calificacion">
+        <h1 class="titulo-calificacion"> CALIFICANOS :</h1>  <select name="CALIFICACION">
           <option> 1</option>
           <option> 2</option>
           <option> 3</option>
           <option> 4</option>
           <option> 5</option>
-          </form>
-        </select>
+          </select>
+          </div>
         <input type="submit" value="AGREGAR AL CARRITO">
         <a href="PaginaCompra.php">COMPRAR</a>
-
-          <h1>descripcion</h1>
-          <P>GWEREWRIOWRIOEWIO54UOIEW4UI329875209UTIJHDOWTIYUGWEIYOTEWIUOTWI</P>
+        <div class="descripcion-producto">
+          <h1 >Descripciòn:</h1>
+          <P> <?php $con = conectar();
+  $sql = "SELECT*FROM productos WHERE id=$_GET[producto] AND estado = 'activo' ";
+  $result = mysqli_query($con, $sql);
+  if ($mostrar = mysqli_fetch_array($result)) {
+  echo "$mostrar[descripcion]";
+  }
+  mysqli_close($con)  ?> </P></div>
           
     </div>
     </form>
     <div class="relacionados"> 
-        <h1>PRODUCTOS RELACIONADOS</h1>
-
+      <?php
+        include_once('ProductosRelacionados.php') ?>
     </div>
+    </div>
+   
 </body>
 </html>
 <?php

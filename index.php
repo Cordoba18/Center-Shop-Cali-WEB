@@ -146,7 +146,7 @@ while ($mostrar10 = mysqli_fetch_array($result10)) { ?>
   </div>
   <br>
   <div class="barra-locales">
-<h1 class="titulo_componente"> DESCUENTOS        </h1> <a class="btn-mas" href="vistas/PaginaProductos.php?descuento=ALL">VER MAS</a>
+<h1 class="titulo_componente"> DESCUENTOS        </h1> <a class="btn-mas" href="vistas/PaginaProductos.php?descuentos=ALL">VER MAS</a>
 </div><br>
 <section class="product"> 
         <button class="pre-btn"><img src="images/arrow.png" alt=""></button>

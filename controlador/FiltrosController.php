@@ -4,7 +4,7 @@ include_once("../sql/Consultas.php")
 <h1 class="titulo_filtros"> Filtros </h1>
 <?php 
 
-if (isset($_GET['descuento']) || isset($_GET['empresa']) ) {
+if (isset($_GET['descuentos']) || isset($_GET['empresa']) ) {
    
     if (isset($_GET['empresa']) &&  $_GET['empresa'] != "ALL") {?>
 
@@ -217,7 +217,7 @@ if (isset($_GET['descuento']) || isset($_GET['empresa']) ) {
         </ul><?php
        
      }else
-     if (isset ($_GET['categoria'])) {?>
+     if (isset ($_GET['categoria']) && isset ($_GET['search'])== false) {?>
         <p class="filtro">Descuentos </p> 
         <ul> 
     <?php 

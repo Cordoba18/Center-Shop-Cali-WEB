@@ -1,9 +1,18 @@
-body{
-    margin: auto;
-    align-items: center;
-    align-content: center;
-    text-align: center;
+
+.contenedor-pagina-producto{
+    border: dashed;
 }
-.imagen_producto{
-    height: 500px;
+.icono-listadeseos{
+    width: 30px;
+    height: 30px;
+}
+.contenedor-imagen-producto{
+    border: dashed;
+}
+.info-producto{
+    display: flex;
+}
+.imagen-producto{
+    width: 800px;
+    height: 800px;
 }

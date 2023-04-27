@@ -1,0 +1,147 @@
+.titulo_componente{
+    font-size: 30px;
+    margin-left: 6%;
+    text-shadow: darkseagreen;
+    color: grey;
+}
+a{
+    text-decoration: none;
+}
+.btn-mas{
+    color: white;
+    padding: 10px;
+    background-color: blue;
+    font-size: 15px;
+    text-align: center;
+    margin-left: 53%;
+    border-radius: 30px;
+}
+.btn-mas:hover{
+    box-shadow: 0px 0px 30px green;
+}
+.barra-locales{
+    display: flex;
+}
+  .product {
+    position: relative;
+    overflow: hidden;
+    padding: 20px;
+  }
+  
+  
+  .product-container {
+    padding: 0 10vw;
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+  }
+  
+  .product-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .pre-btn,
+  .nxt-btn {
+    border: none;
+    width: 10vw;
+    height: 400px;
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #fff 100%);
+    cursor: pointer;
+    z-index: 8;
+  }
+  
+  .pre-btn {
+    left: 0;
+    transform: rotate(180deg);
+  }
+  
+  .nxt-btn {
+    right: 0;
+  }
+  
+  .pre-btn img,
+  .nxt-btn img {
+    opacity: 0.2;
+  }
+  
+  .pre-btn:hover img,
+  .nxt-btn:hover img {
+    opacity: 1;
+  }
+  
+  .imagen-producto{
+    width: 295px;
+    height: 150px;
+    margin: 0;
+  }
+  .producto {
+    width: 300px;
+    height: 340px;
+    margin: 20px;
+    border: solid;
+    box-shadow: 0px 0px 15px;
+    
+  }
+  .producto:hover{
+    box-shadow: 0px 0px 20px green;
+    transform: scale(1.1);
+  }
+  .precio-antes{
+    margin-left: 5%;
+   color: grey;
+   text-decoration: line-through;
+
+  }
+
+  .precio-actual{
+    margin-left: 5%;
+    font-weight: bold;
+    font-size: 15px;
+    font-family: "Mulish", sans-serif;
+  }
+  .btn-listadeseos{
+    width: 30px;
+    height: 30px;
+    margin-left: 5%;
+    margin-top: 5px;
+   
+  }
+  .btn-listadeseos:hover{
+    transform: scale(1.2);
+  }
+  .btn-carritocompras:hover{
+    transform: scale(1.2);
+  }
+  .btn-carritocompras{
+    width: 30px;
+    height: 30px;
+    margin-left: 5%;
+    margin-top: 5px;
+    
+  }
+  .nombre-producto{
+    margin-top: 5px;
+    font-size: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-left: 5%;
+    font-weight: bold;
+  }
+  .id-producto{
+    color: grey;
+    margin-left: 5%;
+  }
+  .precio-descuento{
+    display: flex;
+  }
+  .descuento{
+    color: red;
+    margin-left: 20%;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: "Mulish", sans-serif;
+  }

@@ -12,3 +12,4 @@ if ($resultados == 0) {
     $filtros.remove();
     $ordenarpor.remove();
 }
+

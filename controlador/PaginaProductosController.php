@@ -1,8 +1,11 @@
 <?php 
+include_once("../sql/Consultas.php");
+$consultas = new consulta();
+$ordenar = new orderpor();
 if (isset($_GET['empresa'])) {
 
     $empresa = $_GET['empresa'];
-   if ($empresa == "ALL") {?>
+   if ($empresa == "ALL" && isset($_GET['categoria'])== false) {?>
     <div class="locales"> 
       <div class="resultados"><p class="r_busqueda">Resultados de busqueda de </p>
        <h1 class="resultado"><?php echo "EMPRESAS"; ?> </h1></div><?php
@@ -28,24 +31,28 @@ if (isset($_GET['empresa'])) {
     <div class="resultados"><p class="r_busqueda">Resultados de busqueda de </p>
      <h1 class="resultado">
       <?php
+      if ($_GET['empresa'] == "ALL") {
+        echo "Todas las empresas";
+      }else {
+        
       $con = conectar(); 
       $sql = "SELECT * FROM users WHERE id=$empresa  AND  estado='activo'";
       $result7 = mysqli_query($con, $sql);
       if ($mostrar7 = mysqli_fetch_array($result7)) {
         echo $mostrar7['nombre'];
       } 
+    }
       ?>
     </h1> <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
     ORDENAR POR
   </button>
   <ul class="dropdown-menu">
-  <li><a class='dropdown-item' href=''> MAYOR PRECIO </a></li>
-  <li><a class='dropdown-item' href=''> MENOR PRECIO </a></li>
-  <li><a class='dropdown-item' href=''> MAS RECIENTE </a></li>
-  <li><a class='dropdown-item' href=''> MEJOR VOTADOS </a></li>
+  <li  id="1"><a class='dropdown-item' href= <?php echo $ordenar -> existenciafiltro("mayorprecio") ?> > MAYOR PRECIO </a></li>
+  <li id="2" ><a class='dropdown-item' href=<?php echo $ordenar -> existenciafiltro("menorprecio") ?>> MENOR PRECIO </a></li>
+  <li id="3"><a  class='dropdown-item' href=<?php echo $ordenar -> existenciafiltro("recientes") ?>> MAS RECIENTE </a></li>
   </ul></div><?php
     $con = conectar();
-    $sql = "SELECT * FROM productos WHERE id_empresa = $_GET[empresa] AND estado='activo'";
+    $sql = $consultas -> empresa();
     $result5 = mysqli_query($con, $sql);
     $resultado = 0;
     while ($mostrar5 = mysqli_fetch_array($result5)) {
@@ -99,33 +106,12 @@ if (isset($_GET['empresa'])) {
     ORDENAR POR
   </button>
   <ul class="dropdown-menu">
-  <li><a class='dropdown-item' href=''> MAYOR PRECIO </a></li>
-  <li><a class='dropdown-item' href=''> MENOR PRECIO </a></li>
-  <li><a class='dropdown-item' href=''> MAS RECIENTE </a></li>
-  <li><a class='dropdown-item' href=''> MEJOR VOTADOS </a></li>
+  <li  id="1"><a class='dropdown-item' href= <?php echo $ordenar -> existenciafiltro("mayorprecio") ?> > MAYOR PRECIO </a></li>
+  <li id="2" ><a class='dropdown-item' href=<?php echo $ordenar -> existenciafiltro("menorprecio") ?>> MENOR PRECIO </a></li>
+  <li id="3"><a  class='dropdown-item' href=<?php echo $ordenar -> existenciafiltro("recientes") ?>> MAS RECIENTE </a></li>
   </ul></div><?php
      $con = conectar();
-     $sql = "SELECT * FROM categorias WHERE categoria='$_GET[search]' OR categoria  REGEXP '".strtolower($_GET['search'])."'";
-     $result5 = mysqli_query($con, $sql);
-     if ($mostrar5 = mysqli_fetch_array($result5)) {
-         $categoria2 = $mostrar5['id'];
-     }else {
-        $categoria2 = "";
-     }
-     $sql = "SELECT * FROM users WHERE (nombre='$_GET[search]' OR nombre  REGEXP '".strtolower($_GET['search'])."') AND estado = 'activo'";
-     $result5 = mysqli_query($con, $sql);
-     if ($mostrar5 = mysqli_fetch_array($result5)) {
-         $idempresa = $mostrar5['id'];
-     }else {
-        $idempresa= "";
-     }
-    if ($categoria2 == "" && $idempresa == "") {
-        $sql = "SELECT * FROM productos WHERE (nombre= '$_GET[search]' OR nombre REGEXP '".strtolower($_GET['search'])."' OR descripcion REGEXP '".strtolower($_GET['search'])."') AND estado='activo'";
-    }else if (!$categoria2 == "") {
-      $sql = "SELECT * FROM productos WHERE categoria=$categoria2 AND estado='activo'";
-    } else if (!$idempresa == "") {
-        $sql = "SELECT * FROM productos WHERE id_empresa=$idempresa AND estado='activo'";
-    }
+     $sql = $consultas -> search();
     $resultado = 0;
     $result5 = mysqli_query($con, $sql);
     while ($mostrar5 = mysqli_fetch_array($result5)) {
@@ -174,27 +160,20 @@ if (isset($_GET['empresa'])) {
     <h1 class="excepcion"> LO SIENTO NO ENCONTRAMOS SU CONSULTA</h1></div>
     <?php
     } ?>  </div> <?php mysqli_close($con); }
-else if (isset($_GET['categoria'])) { ?>
+else if (isset($_GET['categoria']) && isset($_GET['empresa']) == false && isset($_GET['search']) == false) { ?>
     <div class="productos">
     <div class="resultados"><p class="r_busqueda">Resultados de busqueda de </p><h1 class="resultado"><?php echo $_GET['categoria'] ?> </h1> <button class=" dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 
     ORDENAR POR
   </button>
   <ul class="dropdown-menu">
-  <li><a class='dropdown-item' href=''> MAYOR PRECIO </a></li>
-  <li><a class='dropdown-item' href=''> MENOR PRECIO </a></li>
-  <li><a class='dropdown-item' href=''> MAS RECIENTE </a></li>
-  <li><a class='dropdown-item' href=''> MEJOR VOTADOS </a></li>
+  <li  id="1"><a class='dropdown-item' href= <?php echo $ordenar -> existenciafiltro("mayorprecio") ?> > MAYOR PRECIO </a></li>
+  <li id="2" ><a class='dropdown-item' href=<?php echo $ordenar -> existenciafiltro("menorprecio") ?>> MENOR PRECIO </a></li>
+  <li id="3"><a  class='dropdown-item' href=<?php echo $ordenar -> existenciafiltro("recientes") ?>> MAS RECIENTE </a></li>
   </ul></div><?php
     
     $con = conectar();
-    $sql = "SELECT * FROM categorias WHERE categoria='$_GET[categoria]'";
-    $result5 = mysqli_query($con, $sql);
-    while ($mostrar5 = mysqli_fetch_array($result5)) {
-        $categoria = $mostrar5['id'];
-    }
-    $con = conectar();
-    $sql = "SELECT * FROM productos WHERE categoria = $categoria AND estado='activo'";
+    $sql = $consultas -> categoria();
     $result5 = mysqli_query($con, $sql);
     $resultado = 0;
     while ($mostrar5 = mysqli_fetch_array($result5)) {
@@ -242,18 +221,17 @@ else if (isset($_GET['categoria'])) { ?>
     <h1 class="excepcion"> LO SIENTO NO ENCONTRAMOS SU CONSULTA</h1></div>
     <?php
     } ?>   </div> <?php mysqli_close($con);  }
-else if (isset($_GET['descuento'])) {
+else if (isset($_GET['descuentos'])) {
 
-    if ($_GET['descuento'] == "ALL") {
+    if ($_GET['descuentos'] == "ALL") {
         ?><div class="productos">
         <div class="resultados"><p class="r_busqueda">Resultados de busqueda de  </p> <h1 class="resultado"><?php echo "descuentos"?> </h1> <button id="10" class=" dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
         ORDENAR POR
       </button>
       <ul class="dropdown-menu">
-      <li><a class='dropdown-item' href=''> MAYOR PRECIO </a></li>
-      <li><a class='dropdown-item' href=''> MENOR PRECIO </a></li>
-      <li><a class='dropdown-item' href=''> MAS RECIENTE </a></li>
-      <li><a class='dropdown-item' href=''> MEJOR VOTADOS </a></li>
+      <li  id="1"><a class='dropdown-item' href= <?php echo $ordenar -> existenciafiltro("mayorprecio") ?> > MAYOR PRECIO </a></li>
+  <li id="2" ><a class='dropdown-item' href=<?php echo $ordenar -> existenciafiltro("menorprecio") ?>> MENOR PRECIO </a></li>
+  <li id="3"><a  class='dropdown-item' href=<?php echo $ordenar -> existenciafiltro("recientes") ?>> MAS RECIENTE </a></li>
       </ul></div><?php
          $con = conectar();
         $sql = "SELECT * FROM productos WHERE descuento > 0 AND estado='activo'";
@@ -307,3 +285,31 @@ else if (isset($_GET['descuento'])) {
     } ?>
    
  <p class="resultadototal" hidden><?php echo $resultado?> </p>
+
+
+
+ <?php  
+ 
+
+
+class orderpor {
+
+  function existenciafiltro($ordenar){
+      
+      $url_actual = $_SERVER['REQUEST_URI'];
+
+      if (isset($_GET['filtro'])) {
+        $url_nuevo_filtro= str_replace("filtro=".$_GET['filtro'], "", $url_actual."filtro=$ordenar");
+      }else {
+        $url_nuevo_filtro= $url_actual."&filtro=$ordenar";
+      }
+    
+
+    echo $url_nuevo_filtro;
+}
+
+}
+
+
+ ?>
+ <p class="textodelorden" hidden> <?php echo $_GET['filtro'] ?> </p>
