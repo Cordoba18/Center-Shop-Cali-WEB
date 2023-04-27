@@ -1,6 +1,0 @@
-<?php $con = conectar();
-    $sql = "SELECT * FROM users WHERE id = $_GET[empresa] AND estado='activo'";
-    $result11 = mysqli_query($con, $sql);
-    while ($mostrar11 = mysqli_fetch_array($result11)) {
-        echo $mostrar11['nombre'];
-    } ?> 
