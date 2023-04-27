@@ -5,7 +5,7 @@ include_once("../sql/Conexion.php")
 
 <head>
     <title>Pagina producto</title>
-    <link rel="stylesheet" href="../css/PaginaProductoCss.css">
+    <link rel="stylesheet" href="../css/PP.css">
 </head>
 <body>
   <div class="contenedor-pagina-productos">
@@ -14,7 +14,7 @@ include_once("../sql/Conexion.php")
     <div id="carouselExample" class="carousel slide">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img class="imagen-producto" src="<?php 
+      <img src="<?php 
       $con = conectar();
       $sql = "SELECT*FROM imagenes_productos WHERE id_producto=$_GET[producto] AND estado = 'activo'";
       $result = mysqli_query($con, $sql);
@@ -45,7 +45,7 @@ include_once("../sql/Conexion.php")
     <span class="visually-hidden">Next</span>
   </button>
 </div>
-    </div> <br>
+    </div><br>
     <form action="" method="post">
      <div class="info-producto">
         <form action="" method="post">
@@ -92,13 +92,15 @@ include_once("../sql/Conexion.php")
   }
   mysqli_close($con)  ?> </P></div>
           
+          </form>
     </div>
-    </form>
     <div class="relacionados"> 
       <?php
         include_once('ProductosRelacionados.php') ?>
     </div>
-    </div>
+
+
+    </div> <!-- Contenedor Todo -->
    
 </body>
 </html>

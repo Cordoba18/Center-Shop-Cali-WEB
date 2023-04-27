@@ -1,4 +1,3 @@
-
 .contenedor-pagina-producto{
     border: dashed;
 }
@@ -8,11 +7,20 @@
 }
 .contenedor-imagen-producto{
     border: dashed;
+    background-color: green;
+    width: 50%;
+    height: auto;
+    margin: 10px;
 }
 .info-producto{
     display: flex;
 }
-.imagen-producto{
-    width: 800px;
-    height: 800px;
+.carousel-item{
+    width: 100%;
+    height: 100%;
+
+}
+.carousel {
+    width: 100%;
+    height: 100%;
 }
