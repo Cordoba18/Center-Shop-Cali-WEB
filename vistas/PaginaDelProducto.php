@@ -9,10 +9,17 @@ include_once("../sql/Conexion.php")
 </head>
 <body>
   <div class="contenedor-pagina-productos">
+
+
     <div class="contenedor-imagen-producto"> 
     <a href=""><img class="icono-listadeseos" src="../icons/ListaDeDeseos.png" alt=""></a> 
+    
     <div id="carouselExample" class="carousel slide">
-  <div class="carousel-inner">
+  
+  
+    <div class="carousel-inner">
+    
+    
     <div class="carousel-item active">
       <img src="<?php 
       $con = conectar();
@@ -23,6 +30,8 @@ include_once("../sql/Conexion.php")
   }mysqli_close($con); ?>" class="d-block w-100" alt="...">
     </div>
     <?php 
+
+
       $con = conectar();
       $sql = "SELECT*FROM imagenes_productos WHERE id_producto=$_GET[producto] AND estado = 'activo'";
       $result = mysqli_query($con, $sql);
@@ -31,11 +40,16 @@ include_once("../sql/Conexion.php")
         if ($total == 0) {
           $total = 1;
         }else {
+
         echo "<div class='carousel-item'>
       <img class='imagen-producto' src='../images/$mostrar[imagen]' class='d-block w-100' alt=''>
     </div>";}
+
   }mysqli_close($con); ?>
   </div>
+
+
+
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Previous</span>
@@ -45,7 +59,20 @@ include_once("../sql/Conexion.php")
     <span class="visually-hidden">Next</span>
   </button>
 </div>
-    </div><br>
+
+
+
+    </div><div class="propiedades-producto" >
+       <?php  $con = conectar();
+  $sql = "SELECT*FROM productos WHERE id=$_GET[producto] AND estado = 'activo' ";
+  $result = mysqli_query($con, $sql);
+  while ($mostrar = mysqli_fetch_array($result)) {
+  echo "<h1> $mostrar[nombre] </h1>";
+  }
+  mysqli_close($con)  ?>
+    </div>
+    </div>
+    <br>
     <form action="" method="post">
      <div class="info-producto">
         <form action="" method="post">

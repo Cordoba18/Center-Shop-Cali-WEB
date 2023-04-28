@@ -1,6 +1,8 @@
 
 .navbar{
     background-color: green;
+    height: auto;
+    width: 100%;
 }
 #btn-sesion {
     
