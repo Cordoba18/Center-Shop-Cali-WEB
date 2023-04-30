@@ -11,7 +11,7 @@ include_once("../sql/Conexion.php");
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-lg ">
   <div class="container-fluid ">
   <a class="navbar-brand" href="../index.php">
       <img src="../icons/LOGO.png" alt="Bootstrap" width="100" height="100">
@@ -26,24 +26,27 @@ include_once("../sql/Conexion.php");
         </li>
       </ul>
       <div class="dropdown" id="categorias">
-  <button class=" dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+  <a class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
     CATEGORIAS
-  </button>
-  <ul class="dropdown-menu">
+</a>
+  <ul class="dropdown-menu" color="white">
   <?php 
-  $con = conectar();
-  $sql = "SELECT*FROM categorias";
-  $result = mysqli_query($con, $sql);
-  while ($mostrar = mysqli_fetch_array($result)) {
-  echo "<li><a class='dropdown-item' href='PaginaProductos.php?categoria=$mostrar[categoria]'> $mostrar[categoria] </a></li>";
-  }
+$con = conectar();
+$sql = "SELECT*FROM categorias";
+$result = mysqli_query($con, $sql);
+while ($mostrar = mysqli_fetch_array($result)) {
+echo "<li><a class='dropdown-item' href='PaginaProductos.php?categoria=$mostrar[categoria]'> $mostrar[categoria] </a></li>";
+}
   mysqli_close($con)  ?>
   </ul>
 </div>
       <form class="d-flex" action="PaginaProductos.php" role="search"> 
+        <div class="todo-buscador">
         <input class="form-control me-2" type="search" placeholder="Buscar productos" aria-label="Search" name="search" required>
-        <input class="btn-Buscar" type="submit" value="BUSCAR"></input>
-        <a class="btn btn-light" id="btn-sesion" href="login.php">INICIO DE SESIÒN</a>
+        <button type="submit"><i class="bi bi-search"></i></button>
+        </div>
+        <a id="btn-sesion" href="login.php">Iniciar sesión</a>
+        
       </form>
     </div>
   </div>

@@ -7,18 +7,6 @@
 a{
     text-decoration: none;
 }
-.btn-mas{
-    color: white;
-    padding: 10px;
-    background-color: blue;
-    font-size: 15px;
-    text-align: center;
-    margin-left: 53%;
-    border-radius: 30px;
-}
-.btn-mas:hover{
-    box-shadow: 0px 0px 30px green;
-}
 .barra-locales{
     display: flex;
 }
@@ -88,7 +76,7 @@ a{
     
   }
   .producto:hover{
-    box-shadow: 0px 0px 20px green;
+    box-shadow: 0px 0px 20px #6F1AB6;
     transform: scale(1.0);
   }
   .precio-antes{

@@ -1,5 +1,6 @@
 body{
   background-color: white;
+
 }
 p{
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
@@ -21,7 +22,7 @@ p{
 
 }
 .elemento:hover{
-  box-shadow: 0px 0px 20px green;
+  box-shadow: 0px 0px 20px #6F1AB6;
   transform: scale(0.9);
   transition:  0.3s;
 }
@@ -56,14 +57,17 @@ a{
 .btn-mas{
     color: white;
     padding: 10px;
-    background-color: blue;
+    background-color: black;
     font-size: 15px;
     text-align: center;
-    margin-left: 55%;
-    border: 2px solid black;
+    margin-left: 50% ;
+    margin-right: 8%;
+    width: 200px;
+    height: auto;
+    border: 2px solid white;
 }
 .btn-mas:hover{
-    box-shadow: 0px 0px 8px green;
+    box-shadow: 0px 0px 8px #6F1AB6;
 }
 .barra-locales{
     display: flex;
@@ -134,7 +138,7 @@ a{
     
   }
   .producto:hover{
-    box-shadow: 0px 0px 20px green;
+    box-shadow: 0px 0px 20px #6F1AB6;
     transform: scale(1.05);
     transition:  0.3s;
   }

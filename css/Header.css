@@ -1,43 +1,61 @@
 
 .navbar{
-    background-color: green;
+    background-color: black;
     height: auto;
-    width: 100%;
+    justify-content: center;
 }
 #btn-sesion {
-    
-    margin-left: 20px;
-    margin-right: 20px;
-    width: 400px;
-
+    margin-right: 1%;
+    color: white;
+    font-size: 15px;
+    width: 200px;
+    padding-top: 6px;
+   
+}
+#btn-sesion:hover{
+    color: #6F1AB6;
 }
 
 #tittle{
     width: 500px;
-    margin: 0%;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 30px;
+    color: white;
 
 }
 #categorias{
     padding: 1px;
-    margin-left: 30px;
-    margin-right: 20px;
+    margin-right: 40px;
+    font-size: 15px;
 }
 .categorias:hover{
-    background-color: blue;
+    background-color: black;
 }
 a{
     text-decoration: none; 
 }
-.btn-Buscar{
-    color: white;
-    background-color: blue;
-    border-radius: 5px;
-}
 .dropdown-toggle{
-    background-color: blue;
+    background-color: black;
     padding: 6px;
     border-radius: 5px;
     color: white;}
+.dropdown-toggle:hover{
+    color: #6F1AB6;
+}
+.todo-buscador{
+    display: flex;
+    margin-right: auto;
+    width: 100%;
+    margin-right:  10%;
+
+}
+.todo-buscador button{
+    background-color: black;
+    border: solid;
     
+}
+.todo-buscador i{
+    color: white;
+    font-size: 20px;
+    margin: 0%;
+}
