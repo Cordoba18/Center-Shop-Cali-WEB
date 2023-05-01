@@ -43,10 +43,10 @@ if (isset($_GET['empresa'])) {
       } 
     }
       ?>
-    </h1> <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    </h1> <button class="dropdown-toggle" id="ordenar" type="button" data-bs-toggle="dropdown" aria-expanded="false">
     ORDENAR POR
   </button>
-  <ul class="dropdown-menu">
+  <ul class="dropdown-menu" >
   <li  id="1"><a class='dropdown-item' href= <?php echo $ordenar -> existenciafiltro("mayorprecio") ?> > MAYOR PRECIO </a></li>
   <li id="2" ><a class='dropdown-item' href=<?php echo $ordenar -> existenciafiltro("menorprecio") ?>> MENOR PRECIO </a></li>
   <li id="3"><a  class='dropdown-item' href=<?php echo $ordenar -> existenciafiltro("recientes") ?>> MAS RECIENTE </a></li>
@@ -102,10 +102,10 @@ if (isset($_GET['empresa'])) {
     } ?>  </div> </div>   <?php mysqli_close($con); } 
    } else if (isset($_GET['search'])) {?>
     <div class="productos">
-    <div class="resultados"><p class="r_busqueda">Resultados de busqueda de  </p> <h1 class="resultado"><?php echo $_GET['search'] ?> </h1> <button id="10" class=" dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <div class="resultados"><p class="r_busqueda">Resultados de busqueda de  </p> <h1 class="resultado"><?php echo $_GET['search'] ?> </h1> <button class=" dropdown-toggle" id="ordenar" type="button" data-bs-toggle="dropdown" aria-expanded="false">
     ORDENAR POR
   </button>
-  <ul class="dropdown-menu">
+  <ul class="dropdown-menu" >
   <li  id="1"><a class='dropdown-item' href= <?php echo $ordenar -> existenciafiltro("mayorprecio") ?> > MAYOR PRECIO </a></li>
   <li id="2" ><a class='dropdown-item' href=<?php echo $ordenar -> existenciafiltro("menorprecio") ?>> MENOR PRECIO </a></li>
   <li id="3"><a  class='dropdown-item' href=<?php echo $ordenar -> existenciafiltro("recientes") ?>> MAS RECIENTE </a></li>
@@ -162,11 +162,11 @@ if (isset($_GET['empresa'])) {
     } ?>  </div> <?php mysqli_close($con); }
 else if (isset($_GET['categoria']) && isset($_GET['empresa']) == false && isset($_GET['search']) == false) { ?>
     <div class="productos">
-    <div class="resultados"><p class="r_busqueda">Resultados de busqueda de </p><h1 class="resultado"><?php echo $_GET['categoria'] ?> </h1> <button class=" dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <div class="resultados"><p class="r_busqueda">Resultados de busqueda de </p><h1 class="resultado"><?php echo $_GET['categoria'] ?> </h1> <button  class=" dropdown-toggle" id="ordenar" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 
     ORDENAR POR
   </button>
-  <ul class="dropdown-menu">
+  <ul class="dropdown-menu" id="ordenar">
   <li  id="1"><a class='dropdown-item' href= <?php echo $ordenar -> existenciafiltro("mayorprecio") ?> > MAYOR PRECIO </a></li>
   <li id="2" ><a class='dropdown-item' href=<?php echo $ordenar -> existenciafiltro("menorprecio") ?>> MENOR PRECIO </a></li>
   <li id="3"><a  class='dropdown-item' href=<?php echo $ordenar -> existenciafiltro("recientes") ?>> MAS RECIENTE </a></li>
@@ -225,10 +225,10 @@ else if (isset($_GET['descuentos'])) {
 
     if ($_GET['descuentos'] == "ALL") {
         ?><div class="productos">
-        <div class="resultados"><p class="r_busqueda">Resultados de busqueda de  </p> <h1 class="resultado"><?php echo "descuentos"?> </h1> <button id="10" class=" dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <div class="resultados"><p class="r_busqueda">Resultados de busqueda de  </p> <h1 class="resultado"><?php echo "descuentos"?> </h1> <button class=" dropdown-toggle" id="ordenar" type="button" data-bs-toggle="dropdown" aria-expanded="false">
         ORDENAR POR
       </button>
-      <ul class="dropdown-menu">
+      <ul class="dropdown-menu" >
       <li  id="1"><a class='dropdown-item' href= <?php echo $ordenar -> existenciafiltro("mayorprecio") ?> > MAYOR PRECIO </a></li>
   <li id="2" ><a class='dropdown-item' href=<?php echo $ordenar -> existenciafiltro("menorprecio") ?>> MENOR PRECIO </a></li>
   <li id="3"><a  class='dropdown-item' href=<?php echo $ordenar -> existenciafiltro("recientes") ?>> MAS RECIENTE </a></li>

@@ -15,7 +15,6 @@
   align-items: center;
   align-content: center;
   border: solid;
-  box-shadow: 0px 0px 30px  #6F1AB6;
 
 }
 .elemento:hover{
@@ -202,3 +201,10 @@ transition:  0.3s;
     margin: 0px;
   }
  
+  #ordenar{
+    color: black;
+    background-color: white;
+  }
+  #ordenar:hover{
+    color: #6F1AB6;
+  }
