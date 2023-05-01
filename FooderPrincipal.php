@@ -18,7 +18,7 @@
         </div>
             <div class="bloque2"> 
                  <div class="componente-ayudas">
-                            <a class="ayudas" href=""> Quienes somos?</a>
+                            <a class="ayudas" href=""> Quienes somos</a>
                             <a class="ayudas" href=""> Terminos y condiciones</a>
                             <a class="ayudas" href=""> Ayudas</a>
                             <a class="ayudas" href=""> Contactanos</a>
@@ -26,11 +26,11 @@
                 </div>
         <div class="componente-redes-sociales">
             <div class="red-social">
-                <a class="btn btn-primary" href="https://es-la.facebook.com/"><i class="bi bi-facebook"></i> </a></div>
+                <a class="btn btn-primary" href="https://www.facebook.com/jhancarlos.cordoba.716"><i class="bi bi-facebook"></i> </a></div>
             <div class="red-social">
-                <a class="btn btn-danger" href=""><i class="bi bi-instagram"></i> </a></div>
+                <a class="btn btn-danger" href="https://www.instagram.com/jccordoba_15/"><i class="bi bi-instagram"></i> </a></div>
             <div class="red-social">
-                <a class="btn btn-success" href=""><i class="bi bi-tiktok"></i></a></div>
+                <a class="btn btn-success" href="https://www.tiktok.com/@cordobasalsa"><i class="bi bi-tiktok"></i></a></div>
             <div class="red-social">
                  <a class="btn btn-info" href=""><i class="bi bi-twitter"></i> </a></div>
             </div>

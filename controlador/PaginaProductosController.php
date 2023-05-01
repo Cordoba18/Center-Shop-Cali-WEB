@@ -234,7 +234,7 @@ else if (isset($_GET['descuentos'])) {
   <li id="3"><a  class='dropdown-item' href=<?php echo $ordenar -> existenciafiltro("recientes") ?>> MAS RECIENTE </a></li>
       </ul></div><?php
          $con = conectar();
-        $sql = "SELECT * FROM productos WHERE descuento > 0 AND estado='activo'";
+        $sql = $consultas->descuentos();
         $resultado = 0;
         $result5 = mysqli_query($con, $sql);
         while ($mostrar5 = mysqli_fetch_array($result5)) {

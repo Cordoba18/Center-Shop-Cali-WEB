@@ -178,6 +178,14 @@ public function search(){
         $idempresa= "";
      }
     if ($categoria2 == "" && $idempresa == "") {
+      if (isset($_GET['categoria'])) {
+      $con = conectar();
+      $sql = "SELECT * FROM categorias WHERE categoria='$_GET[categoria]'";
+     $result5 = mysqli_query($con, $sql);
+     if ($mostrar5 = mysqli_fetch_array($result5)) {
+         $categoria2 = $mostrar5['id'];
+     }
+    }
         if (isset($_GET['descuento'])) {
           if (isset($_GET['filtro'])) {
          
@@ -198,12 +206,12 @@ public function search(){
           else
           if ($_GET['filtro'] == 'recientes') {
             $sql = "SELECT * FROM productos WHERE (nombre= '$_GET[search]' OR nombre REGEXP '".strtolower($_GET['search'])."' OR descripcion REGEXP '".strtolower($_GET['search'])."') 
-            AND categoria=$categoria2 AND estado = 'activo' ORDER BY id DESC";
+            AND categoria=$categoria2 AND descuento>0 AND estado = 'activo' ORDER BY id DESC";
           }
           }
           else {
           
-            $sql = "SELECT * FROM productos WHERE (nombre= '$_GET[search]' OR nombre REGEXP '".strtolower($_GET['search'])."' OR descripcion REGEXP '".strtolower($_GET['search'])."') AND descuento > 0 AND estado='activo'";
+            $sql = "SELECT * FROM productos WHERE (nombre= '$_GET[search]' OR nombre REGEXP '".strtolower($_GET['search'])."' OR descripcion REGEXP '".strtolower($_GET['search'])."') AND descuento > 0 AND categoria=$categoria2 AND estado='activo'";
             }
         }
         
@@ -856,13 +864,10 @@ public function empresa(){
   }
   else if (isset($_GET['puntuados'])) {
       if (isset($_GET['filtro'])) {
-     
         if ($_GET['filtro'] == 'mayorprecio') {
-        if (isset($_GET['descuento'])) {
           $sql = "SELECT*FROM productos 
           WHERE categoria = $categoria2
           AND calificacion > 3.8 AND estado='activo' ORDER BY precio DESC";
-        }
       }else if ($_GET['filtro'] == 'menorprecio') {
   
         $sql = "SELECT*FROM productos 
@@ -923,7 +928,7 @@ public function empresa(){
     else
     if ($_GET['filtro'] == 'recientes') {
       $sql = "SELECT * FROM productos 
-      WHERE id_empresa = $_GET[empresa] AND categoria = $categoria2
+      WHERE id_empresa = $_GET[empresa] AND categoria = $categoria2  AND descuento>0
       AND estado = 'activo' ORDER BY id DESC";
     }
     }else {
@@ -1048,6 +1053,32 @@ else if (isset($_GET['puntuados'])) {
 
   }
 }
+return $sql;
+}
+
+public function descuentos(){
+
+   if (isset($_GET['filtro'])) {
+     
+      if ($_GET['filtro'] == 'mayorprecio') {
+        $sql = "SELECT*FROM productos
+         WHERE descuento>0 AND estado='activo' ORDER BY precio DESC";
+    }else if ($_GET['filtro'] == 'menorprecio') {
+  
+      $sql = "SELECT*FROM productos 
+      WHERE  descuento>0 AND estado='activo' ORDER BY precio ASC";
+    }
+    else
+    if ($_GET['filtro'] == 'recientes') {
+      $sql = "SELECT*FROM productos 
+      WHERE  descuento>0 AND estado='activo' ORDER BY id DESC";
+    }
+    }
+    else {
+      $sql = "SELECT * FROM productos 
+      WHERE descuento>0 AND estado='activo'";
+  
+    }
 return $sql;
 }
 

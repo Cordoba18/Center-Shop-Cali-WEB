@@ -10,6 +10,7 @@
     font-size: 15px;
     width: 200px;
     padding-top: 6px;
+    text-decoration: none;
    
 }
 #btn-sesion:hover{
@@ -27,6 +28,7 @@
     padding: 1px;
     margin-right: 40px;
     font-size: 15px;
+    text-decoration: none;
 }
 .categorias:hover{
     background-color: black;
@@ -59,3 +61,6 @@ a{
     font-size: 20px;
     margin: 0%;
 }
+li{
+    list-style: none;
+  }

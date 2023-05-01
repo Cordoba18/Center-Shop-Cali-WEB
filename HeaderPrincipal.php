@@ -30,7 +30,7 @@ include_once("sql/Conexion.php");
   <a class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
     CATEGORIAS
 </a>
-  <ul class="dropdown-menu" color="white">
+  <ul class="dropdown-menu">
   <?php 
 $con = conectar();
 $sql = "SELECT*FROM categorias";
