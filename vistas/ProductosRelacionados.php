@@ -6,7 +6,7 @@
         <div class="product-container">
                 <?php
                 $con = conectar();
-                $sql = "SELECT DISTINCT id FROM `productos`  WHERE estado='activo' ORDER BY RAND()";
+                $sql = "SELECT DISTINCT id FROM `productos`  WHERE estado='activo' ORDER BY RAND() LIMIT 10";
                 $result5 = mysqli_query($con, $sql);
                 while ($mostrar5 = mysqli_fetch_array($result5)) {
                   $idpopular[] = $mostrar5['id'];
