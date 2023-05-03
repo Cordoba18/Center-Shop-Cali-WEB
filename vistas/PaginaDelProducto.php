@@ -128,8 +128,9 @@ include_once("../sql/Conexion.php")
 
 
     </div> <!-- Contenedor Todo -->
-   
+    <script src="../scripts/entercorazon.js"></script>
 </body>
+
 </html>
 <?php
 include_once("FooderPrincipal.php");

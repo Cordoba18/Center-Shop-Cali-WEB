@@ -125,8 +125,8 @@ while ($mostrar10 = mysqli_fetch_array($result10)) { ?>
                       <?php 
                       if ($descuentoproductopopular[$i] < 1) {?>
                         <span class="precio-actual">$<?php echo $precioproductopopular[$i] ?></span></div>
-                        <a href=""><img class="btn-listadeseos" src="icons/ListaDeDeseos.png" alt=""></a>
-                     <a href=""><img class="btn-carritocompras" src="icons/CarritoCompras.png" alt=""></a></div><?php 
+                        <a href=""><img class="btn-listadeseos" src="icons/ListaDeDeseos.png" alt=""  ></a>
+                     <a href=""><img class="btn-carritocompras" src="icons/CarritoCompras.png" alt="" ></a></div><?php 
 
                       }else{
                       ?>
@@ -136,8 +136,8 @@ while ($mostrar10 = mysqli_fetch_array($result10)) { ?>
                      $total = $precioproductopopular[$i]-$preciodescuento;?>
                      <?php echo $total ?></span>
                      <span class="precio-antes">$<?php echo $precioproductopopular[$i] ?></span><p class="descuento"><?php echo $descuentoproductopopular[$i] ?>% OFF</p></div>
-                     <a href=""><img class="btn-listadeseos" src="icons/ListaDeDeseos.png" alt=""></a>
-                     <a href=""><img class="btn-carritocompras" src="icons/CarritoCompras.png" alt=""></a>
+                     <a href=""><img class="btn-listadeseos" src="icons/ListaDeDeseos.png" alt="" ></a>
+                     <a href=""><img class="btn-carritocompras" src="icons/CarritoCompras.png" alt="" ></a>
 
             </div>
             <?php } } mysqli_close($con)   ?>
@@ -189,14 +189,15 @@ while ($mostrar10 = mysqli_fetch_array($result10)) { ?>
                      $total = $precioproducto[$i]-$preciodescuento;?>
                      <?php echo $total ?></span>
                      <span class="precio-antes">$<?php echo $precioproducto[$i]; ?></span><p class="descuento"><?php echo $descuentoproducto[$i]; ?>% OFF</p></div>
-                     <a href=""><img class="btn-listadeseos" src="icons/ListaDeDeseos.png" alt=""></a>
-                     <a href=""><img class="btn-carritocompras" src="icons/CarritoCompras.png" alt=""></a>
+                     <a href=""><img class="btn-listadeseos" src="icons/ListaDeDeseos.png" alt="" ></a>
+                     <a href=""><img class="btn-carritocompras" src="icons/CarritoCompras.png" alt="" ></a>
 
             </div>
             <?php  } mysqli_close($con) ?>
         </div>
     </section>
     <script src="scripts/script.js"></script>
+    <script src="scripts/entercorazon.js"></script>
 </body>
 <?php
 include_once("FooderPrincipal.php");

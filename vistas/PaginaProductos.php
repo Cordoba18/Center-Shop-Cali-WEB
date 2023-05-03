@@ -21,6 +21,7 @@ include_once("HeaderPrincipal.php");
 </div>
 <script src="../scripts/busquedatotal.js"></script>
 <script src="../scripts/ocultarfiltro.js"></script>
+<script src="../scripts/entercorazon.js"></script>
 </body>
 </html>
 <?php
