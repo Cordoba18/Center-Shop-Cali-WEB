@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-04-2023 a las 08:15:27
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.2.4
+-- Tiempo de generación: 04-05-2023 a las 15:21:22
+-- Versión del servidor: 10.4.27-MariaDB
+-- Versión de PHP: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -350,7 +350,7 @@ CREATE TABLE `productos` (
   `nombre` varchar(45) NOT NULL,
   `precio` int(11) NOT NULL,
   `descuento` int(11) DEFAULT NULL,
-  `descripcion` varchar(45) NOT NULL,
+  `descripcion` varchar(500) NOT NULL,
   `calificacion` int(11) DEFAULT NULL,
   `n_p_calificaron` int(11) DEFAULT NULL,
   `categoria` int(11) NOT NULL,
