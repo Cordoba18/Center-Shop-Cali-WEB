@@ -1,37 +1,100 @@
-.contenedor-pagina-producto{
-    border: dashed;
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 .icono-listadeseos{
     width: 30px;
     height: 30px;
 }
 .contenedor-pagina-productos{
-    border: 0.5px solid;
-    width: 100% auto;
-    height: 900px auto;
+    width: auto;
+    height: 350px ;
     margin: 10px;
+    padding: 30px;
     display: flex;
-    align-content: center;
+
    
 }
 .carousel{
-    background-color: rgb(220, 215, 215);
-    height: auto;
-    width: 40%;
+    width: 100%;
+    height: 100%;
     margin: 10px;
-    align-items: center;
     margin: 0%;
-   
 }
 .info-producto{
     display: flex;
 }
-.carousel-item{
+
+
+.contenedor-imagen-producto{
+    width: 60%;
+    height: 100%;
+    margin-right: 20px;
+
+}
+#carouselExample{
+    height: 100%;
     width: 100%;
-    height: 40%;
+    text-align: center;
+}
+.carousel-inner{
+    height: 100%;
+    width: 100%;
+}
+.carousel-control-prev{
+    height: 40px;
+    width: 50px;
+    margin-top: 165px;
+    background-color:  #6F1AB6;
+    margin-left: 20px;
+    border-radius: 100px;
+   
+}
+.carousel-control-next{
+    height: 40px;
+    width: 50px;
+    margin-top: 165px;
+    background-color:  #6F1AB6;
+    margin-right: 20px;
+    border-radius: 100px;
+}
+.imp{
+    height: 100%;
+    width: 100%;
+}
+.carousel-item{
+    height: 100%;
+    width: 100%;
+}
+.total-producto{
+    display: flex;
+    width: 100%;
     
 }
+.descuento-producto{
+    color: red;
+    font-size: 30px;
+    text-align: right;
+    width: 100%;
+    margin-right: 50px;
+
+}
+.descuento-producto b{
+    border-bottom: 3px solid red;
+}
+.np{
+    font-weight: bold;
+
+}
+.pp{
+    font-size: 40px;
+}
 .propiedades-producto{
-    width: 500px;
-    background-color: red;
+    width: 40%;
+    flex-wrap: wrap;
+}
+.info-producto{
+   padding-top: 15px;
+   padding-left: 30px;
+   padding-right: 30px;
+   padding-bottom: 15px;
 }

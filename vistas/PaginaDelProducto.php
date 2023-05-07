@@ -12,23 +12,19 @@ include_once("../sql/Conexion.php")
 
 
     <div class="contenedor-imagen-producto"> 
-    <a href=""><img class="icono-listadeseos" src="../icons/ListaDeDeseos.png" alt=""></a> 
     
     <div id="carouselExample" class="carousel slide">
   
-  
     <div class="carousel-inner">
-    
-    
-    <div class="carousel-item active">
-      <img src="<?php 
+ 
+    <?php 
       $con = conectar();
       $sql = "SELECT*FROM imagenes_productos WHERE id_producto=$_GET[producto] AND estado = 'activo'";
       $result = mysqli_query($con, $sql);
       if($mostrar = mysqli_fetch_array($result)) {
-        echo "../images/".$mostrar['imagen'];
-  }mysqli_close($con); ?>" class="d-block w-100" alt="...">
-    </div>
+        echo "<div class='carousel-item active'><img class='imp'   src='../images/$mostrar[imagen]' class='d-block w-100' alt='...'> </div>";
+  }mysqli_close($con); ?>
+   
     <?php 
 
 
@@ -39,12 +35,11 @@ include_once("../sql/Conexion.php")
       while($mostrar = mysqli_fetch_array($result)) {
         if ($total == 0) {
           $total = 1;
-        }else {
-
+        }else{
         echo "<div class='carousel-item'>
-      <img class='imagen-producto' src='../images/$mostrar[imagen]' class='d-block w-100' alt=''>
+      <img class='imp'  src='../images/$mostrar[imagen]' class='d-block w-100' alt=''>
     </div>";}
-
+      
   }mysqli_close($con); ?>
   </div>
 
@@ -62,13 +57,28 @@ include_once("../sql/Conexion.php")
 
 
 
+
     </div><div class="propiedades-producto" >
        <?php  $con = conectar();
   $sql = "SELECT*FROM productos WHERE id=$_GET[producto] AND estado = 'activo' ";
   $result = mysqli_query($con, $sql);
   while ($mostrar = mysqli_fetch_array($result)) {
-  echo "<h1> $mostrar[nombre] </h1>";
+  echo "<h1 class='np'> $mostrar[nombre] </h1>";
+  if ($mostrar['descuento'] <= 0) {?> 
+    <h1 class="pp">$<?php 
+      echo " $mostrar[precio] </h1>";
+
+  }else{
+  ?>
+  <div class="total-producto">
+<h1 class="class='pp'">$<?php
+$descuento = $mostrar['descuento']*$mostrar['precio'];
+ $preciodescuento = $descuento/100;
+ $total = $mostrar['precio']-$preciodescuento;?><?php
+    echo "$total </h1>";
+    echo "<h1 class='descuento-producto'> $mostrar[descuento] % <b>OFF</b>  </h1></div> ";
   }
+}
   mysqli_close($con)  ?>
     </div>
     </div>
