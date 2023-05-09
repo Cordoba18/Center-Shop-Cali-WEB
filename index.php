@@ -124,7 +124,7 @@ while ($mostrar10 = mysqli_fetch_array($result10)) { ?>
                     <div class="precio-descuento">
                       <?php 
                       if ($descuentoproductopopular[$i] < 1) {?>
-                        <span class="precio-actual">$<?php echo $precioproductopopular[$i] ?></span></div>
+                        <span class="precio-actual">$<?php echo number_format(intval($precioproductopopular[$i])) ?></span></div>
                         <a href=""><img class="btn-listadeseos" src="icons/ListaDeDeseos.png" alt=""  ></a>
                      <a href=""><img class="btn-carritocompras" src="icons/CarritoCompras.png" alt="" ></a></div><?php 
 
@@ -134,7 +134,7 @@ while ($mostrar10 = mysqli_fetch_array($result10)) { ?>
                     $descuento = $descuentoproductopopular[$i]*$precioproductopopular[$i];
                      $preciodescuento = $descuento/100;
                      $total = $precioproductopopular[$i]-$preciodescuento;?>
-                     <?php echo $total ?></span>
+                     <?php echo number_format(intval($total)) ?></span>
                      <span class="precio-antes">$<?php echo $precioproductopopular[$i] ?></span><p class="descuento"><?php echo $descuentoproductopopular[$i] ?>% OFF</p></div>
                      <a href=""><img class="btn-listadeseos" src="icons/ListaDeDeseos.png" alt="" ></a>
                      <a href=""><img class="btn-carritocompras" src="icons/CarritoCompras.png" alt="" ></a>
@@ -187,7 +187,7 @@ while ($mostrar10 = mysqli_fetch_array($result10)) { ?>
                     $descuento = $descuentoproducto[$i]*$precioproducto[$i];
                      $preciodescuento = $descuento/100;
                      $total = $precioproducto[$i]-$preciodescuento;?>
-                     <?php echo $total ?></span>
+                     <?php echo number_format(intval($total)) ?></span>
                      <span class="precio-antes">$<?php echo $precioproducto[$i]; ?></span><p class="descuento"><?php echo $descuentoproducto[$i]; ?>% OFF</p></div>
                      <a href=""><img class="btn-listadeseos" src="icons/ListaDeDeseos.png" alt="" ></a>
                      <a href=""><img class="btn-carritocompras" src="icons/CarritoCompras.png" alt="" ></a>

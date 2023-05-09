@@ -26,7 +26,7 @@ include_once("../sql/Conexion.php");
         </li>
       </ul>
       <div class="dropdown" id="categorias">
-  <a class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+  <a class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
     CATEGORIAS
 </a>
   <ul class="dropdown-menu" color="white">

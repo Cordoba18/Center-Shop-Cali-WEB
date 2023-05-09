@@ -30,6 +30,10 @@
     font-size: 15px;
     text-decoration: none;
     background-color: black;
+    padding: 6px;
+    border-radius: 5px;
+    color: white;
+    border: 0px;
 }
 .categorias:hover{
     background-color: black;
@@ -37,13 +41,7 @@
 a{
     text-decoration: none; 
 }
-.dropdown-toggle{
-    padding: 6px;
-    border-radius: 5px;
-    color: white;
-    border: 0px;
-}
-.dropdown-toggle:hover{
+#categorias:hover{
     color: #6F1AB6;
 }
 .todo-buscador{

@@ -79,7 +79,7 @@ if (isset($_GET['empresa'])) {
         <div class="precio-descuento">
           <?php 
           if ($mostrar5['descuento'] < 1) {?>
-            <span class="precio-actual">$<?php echo $mostrar5['precio'] ?></span></div>
+            <span class="precio-actual">$<?php echo number_format(intval($mostrar5['precio'])) ?></span></div>
             <a href=""><img class="btn-listadeseos" src="../icons/ListaDeDeseos.png" alt=""></a>
          <a href=""><img class="btn-carritocompras" src="../icons/CarritoCompras.png" alt=""></a></div><?php 
 
@@ -89,7 +89,7 @@ if (isset($_GET['empresa'])) {
         $descuento = $mostrar5['descuento']*$mostrar5['precio'];
          $preciodescuento = $descuento/100;
          $total = $mostrar5['precio']-$preciodescuento;?>
-         <?php echo $total ?></span>
+         <?php echo number_format(intval($total)) ?></span>
          <span class="precio-antes">$<?php echo $mostrar5['precio'] ?></span><p class="descuento"><?php echo $mostrar5['descuento'] ?>% OFF</p></div>
          <a href=""><img class="btn-listadeseos" src="../icons/ListaDeDeseos.png" alt=""></a>
          <a href=""><img class="btn-carritocompras" src="../icons/CarritoCompras.png" alt=""></a>
@@ -139,7 +139,7 @@ if (isset($_GET['empresa'])) {
         <div class="precio-descuento">
           <?php 
           if ($mostrar5['descuento'] < 1) {?>
-            <span class="precio-actual">$<?php echo $mostrar5['precio'] ?></span></div>
+            <span class="precio-actual">$<?php echo number_format(intval($mostrar5['precio'])) ?></span></div>
             <a href=""><img class="btn-listadeseos" src="../icons/ListaDeDeseos.png" alt=""></a>
          <a href=""><img class="btn-carritocompras" src="../icons/CarritoCompras.png" alt=""></a></div><?php 
 
@@ -149,7 +149,7 @@ if (isset($_GET['empresa'])) {
         $descuento = $mostrar5['descuento']*$mostrar5['precio'];
          $preciodescuento = $descuento/100;
          $total = $mostrar5['precio']-$preciodescuento;?>
-         <?php echo $total ?></span>
+         <?php echo number_format(intval($total)) ?></span>
          <span class="precio-antes">$<?php echo $mostrar5['precio'] ?></span><p class="descuento"><?php echo $mostrar5['descuento'] ?>% OFF</p></div>
          <a href=""><img class="btn-listadeseos" src="../icons/ListaDeDeseos.png" alt=""></a>
          <a href=""><img class="btn-carritocompras" src="../icons/CarritoCompras.png" alt=""></a>
@@ -200,7 +200,7 @@ else if (isset($_GET['categoria']) && isset($_GET['empresa']) == false && isset(
         <div class="precio-descuento">
           <?php 
           if ($mostrar5['descuento'] < 1) {?>
-            <span class="precio-actual">$<?php echo $mostrar5['precio'] ?></span></div>
+            <span class="precio-actual">$<?php echo number_format(intval($mostrar5['precio'])) ?></span></div>
             <a href=""><img class="btn-listadeseos" src="../icons/ListaDeDeseos.png" alt=""></a>
          <a href=""><img class="btn-carritocompras" src="../icons/CarritoCompras.png" alt=""></a></div><?php 
 
@@ -210,7 +210,7 @@ else if (isset($_GET['categoria']) && isset($_GET['empresa']) == false && isset(
         $descuento = $mostrar5['descuento']*$mostrar5['precio'];
          $preciodescuento = $descuento/100;
          $total = $mostrar5['precio']-$preciodescuento;?>
-         <?php echo $total ?></span>
+         <?php echo number_format(intval($total)) ?></span>
          <span class="precio-antes">$<?php echo $mostrar5['precio'] ?></span><p class="descuento"><?php echo $mostrar5['descuento'] ?>% OFF</p></div>
          <a href=""><img class="btn-listadeseos" src="../icons/ListaDeDeseos.png" alt=""></a>
          <a href=""><img class="btn-carritocompras" src="../icons/CarritoCompras.png" alt=""></a>
@@ -271,7 +271,7 @@ else if (isset($_GET['descuentos'])) {
             $descuento = $mostrar5['descuento']*$mostrar5['precio'];
              $preciodescuento = $descuento/100;
              $total = $mostrar5['precio']-$preciodescuento;?>
-             <?php echo $total ?></span>
+             <?php echo number_format(intval($total)) ?></span>
              <span class="precio-antes">$<?php echo $mostrar5['precio'] ?></span><p class="descuento"><?php echo $mostrar5['descuento'] ?>% OFF</p></div>
              <a href=""><img class="btn-listadeseos" src="../icons/ListaDeDeseos.png" alt=""></a>
              <a href=""><img class="btn-carritocompras" src="../icons/CarritoCompras.png" alt=""></a>

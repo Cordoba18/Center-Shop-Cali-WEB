@@ -6,7 +6,12 @@
         <div class="product-container">
                 <?php
                 $con = conectar();
-                $sql = "SELECT DISTINCT id FROM `productos`  WHERE estado='activo' ORDER BY RAND() LIMIT 10";
+                $sql = "SELECT * FROM `productos`  WHERE id= $_GET[producto] AND estado='activo'";
+                $result5 = mysqli_query($con, $sql);
+                if ($mostrar5 = mysqli_fetch_array($result5)) {
+                  $categoria = $mostrar5['categoria'];
+                }
+                $sql = "SELECT * FROM `productos`  WHERE categoria = $categoria AND id<> $_GET[producto] AND estado='activo' ORDER BY RAND() LIMIT 10";
                 $result5 = mysqli_query($con, $sql);
                 while ($mostrar5 = mysqli_fetch_array($result5)) {
                   $idpopular[] = $mostrar5['id'];
@@ -45,7 +50,7 @@
                     <div class="precio-descuento">
                       <?php 
                       if ($descuentoproductopopular[$i] < 1) {?>
-                        <span class="precio-actual">$<?php echo $precioproductopopular[$i] ?></span></div>
+                        <span class="precio-actual">$<?php echo number_format(intval($precioproductopopular[$i])) ?></span></div>
                         <a href=""><img class="btn-listadeseos" src="../icons/ListaDeDeseos.png" alt=""></a>
                      <a href=""><img class="btn-carritocompras" src="../icons/CarritoCompras.png" alt=""></a></div><?php 
 
@@ -55,7 +60,7 @@
                     $descuento = $descuentoproductopopular[$i]*$precioproductopopular[$i];
                      $preciodescuento = $descuento/100;
                      $total = $precioproductopopular[$i]-$preciodescuento;?>
-                     <?php echo $total ?></span>
+                     <?php echo number_format(intval($total)) ?></span>
                      <span class="precio-antes">$<?php echo $precioproductopopular[$i] ?></span><p class="descuento"><?php echo $descuentoproductopopular[$i] ?>% OFF</p></div>
                      <a href=""><img class="btn-listadeseos" src="../icons/ListaDeDeseos.png" alt=""></a>
                      <a href=""><img class="btn-carritocompras" src="../icons/CarritoCompras.png" alt=""></a>
