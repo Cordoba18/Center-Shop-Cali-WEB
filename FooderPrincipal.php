@@ -30,7 +30,7 @@
             <div class="red-social">
                 <a class="btn btn-danger" href="https://www.instagram.com/jccordoba_15/"><i class="bi bi-instagram"></i> </a></div>
             <div class="red-social">
-                <a class="btn btn-success" href="https://www.tiktok.com/@cordobasalsa"><i class="bi bi-tiktok"></i></a></div>
+                <a class="btn btn-dark" href="https://www.tiktok.com/@cordobasalsa"><i class="bi bi-tiktok"></i></a></div>
             <div class="red-social">
                  <a class="btn btn-info" href=""><i class="bi bi-twitter"></i> </a></div>
             </div>
