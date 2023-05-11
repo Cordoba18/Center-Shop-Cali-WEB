@@ -3,6 +3,7 @@
     background-color: black;
     height: auto;
     justify-content: center;
+    position: fixed;
 }
 #btn-sesion {
     margin-right: 1%;
