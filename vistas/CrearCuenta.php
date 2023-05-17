@@ -1,6 +1,4 @@
-<?php
-include_once("HeaderSimple.php");
-?>
+
 <head>
     <title> INICIO SESIÓN</title>
     <link rel="stylesheet" href="../css/Login.css">
@@ -9,26 +7,29 @@ include_once("HeaderSimple.php");
 <div class="Login">
 
 
-<img src="../icons/LOGO.png" alt="">
 <form action="../controlador/LoginController.php" method="post">
 <h1> CREAR CUENTA</h1>
+<div class="contenedor-inputs">
 <label >NOMBRE COMPLETO: </label>
-<input type="text" name="correo">
+<input class="input-entrada" type="text" name="correo"></div>
+<div class="contenedor-inputs">
 <label >FECHA NACIMIENTO: </label>
-<input type="date" name="f_nacimiento">
+<input class="input-entrada" type="date" name="f_nacimiento"></div>
+<div class="contenedor-inputs">
 <label >NUMERO DE TELEFONO: </label>
-<input type="number" name="telefono">
+<input class="input-entrada" type="number" name="telefono"></div>
+<div class="contenedor-inputs">
 <label >CORREO:</label>
-<input type="email" name="correo" >
+<input class="input-entrada" type="email" name="correo" ></div>
+<div class="contenedor-inputs">
 <label >CONTRASEÑA:</label>
-<input type="password" name="contrasena" >
-<input type="submit" value="CREAR">
-<a href="login.php">YA TENGO CUENTA</a>
+<input class="input-entrada" type="password" name="contrasena" ></div>
+<div class="contenedor-boton">
+<input type="submit" value="CREAR"></div>
+<div class="contenedor-links">
+<a href="login.php">YA TENGO CUENTA</a></div>
 </form>
 </div>
 </body>
 
 </html>
-<?php
-include_once("FooderPrincipal.php");
-?>

@@ -9,10 +9,10 @@
 <h1> INICIAR SESION</h1>
 <div class="contenedor-inputs">
 <label >CORREO: </label>
-<input type="email" name="correo"></div>
+<input class="input-entrada" type="email" name="correo"></div>
 <div class="contenedor-inputs">
 <label >CONTRASEÑA:</label></div>
-<input type="password" name="contrasena" >
+<input class="input-entrada" type="password" name="contrasena" >
 <div class="contenedor-boton">
 <input type="submit" value="INICIAR"></div>
 <div class="contenedor-links">

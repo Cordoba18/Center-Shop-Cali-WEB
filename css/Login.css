@@ -1,13 +1,15 @@
 .Login{
     position: fixed;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     box-shadow: 0px 0px 6px #B71375;
-    padding: 105px 109px;
+    padding: 40px 109px;
     font-weight: bold;
     width: 400px;
     border-radius: 10px;
+    margin-top: 80px;
+    margin-bottom: 100px;
 }
 .Login h1{
     text-align: center;
@@ -23,12 +25,16 @@ body{
     width: 100%;
     font-size: 25px;
 }
-.Login input[type='password'],  input[type='email'] {
+.Login .input-entrada{
     width: 100%;
     outline: none;
     height: 40px;
     font-size: 20px;
+    border-radius: 10px;
 
+}
+.Login .input-entrada:hover{
+    border: #B71375 solid 2px;
 }
 .Login input[type='submit']{
     text-align: center;
@@ -67,4 +73,7 @@ background-color: black;}
     .Login{
         box-shadow: 0px 0px 6px #000000;
     }
+}
+.Login a:hover{
+    border-bottom: solid 2px #B71375;
 }
